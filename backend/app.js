@@ -16,6 +16,12 @@ app.use(express.json());
 app.use("/", authRouter);
 app.use("/posts", postRouter);
 app.use("/posts/:postId/comments", commentRouter);
+
+app.use((req, res, next) => {
+  res.locals.user = req.user;
+  next();
+});
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(3000, () => console.log(`app listening on port ${PORT}!`));
