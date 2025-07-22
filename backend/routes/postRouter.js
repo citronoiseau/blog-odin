@@ -1,23 +1,28 @@
 const { Router } = require("express");
-
+const PostsController = require("../controllers/postsController");
+const postsController = require("../controllers/postsController");
+const { isAuthor } = require("../utils/checkStatus");
 const postRouter = Router();
 
-postRouter.get("/", (req, res) => {
-  const posts = [];
-  // code to retrieve an article...
-  res.json(posts);
-});
+postRouter.get(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  PostsController.getAllPosts
+);
 
-postRouter.post("/", (req, res) => {
-  // code to add a new article...
-  res.json(req.body);
-});
+postRouter.post(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  isAuthor,
+  postsController.createPost
+);
 
-postRouter.put("/:id", (req, res) => {
-  const { id } = req.params;
-  // code to update an article...
-  res.json(req.body);
-});
+postRouter.put(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  isAuthor,
+  postsController.updatePost
+);
 
 postRouter.delete("/:id", (req, res) => {
   const { id } = req.params;
