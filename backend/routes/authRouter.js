@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const jwt = require("jsonwebtoken");
 const passport = require("passport");
-const UserController = require("../controllers/userController");
+const UsersController = require("../controllers/usersController");
 const { isAuthor } = require("../utils/checkStatus");
 
 const authRouter = Router();
@@ -27,21 +27,21 @@ authRouter.post("/login", (req, res, next) => {
   })(req, res, next);
 });
 
-authRouter.post("/sign-up", UserController.signUp);
+authRouter.post("/sign-up", UsersController.signUp);
 
 authRouter.get(
   "/author",
   passport.authenticate("jwt", { session: false }),
   isAuthor,
   (req, res) => {
-    res.send("Welcome, Author!");
+    res.status(201).json("Welcome, Author!");
   }
 );
 
 authRouter.post(
   "/upgrade-to-author",
   passport.authenticate("jwt", { session: false }),
-  UserController.upgradeToAuthor
+  UsersController.upgradeToAuthor
 );
 
 module.exports = authRouter;

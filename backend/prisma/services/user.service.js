@@ -12,7 +12,7 @@ class UserService {
     });
   }
 
-  async addUser(first_name, last_name, email, password) {
+  async createUser(first_name, last_name, email, password) {
     return await prisma.user.create({
       data: {
         firstName: first_name,
