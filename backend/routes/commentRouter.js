@@ -1,33 +1,26 @@
 const { Router } = require("express");
+const CommentsController = require("../controllers/commentsController");
 
 const commentRouter = Router({ mergeParams: true });
 
-commentRouter.get("/", (req, res) => {
-  const postId = req.params.postId;
-  // fetch comments for postId
-  res.json([]); // replace with actual comments
-});
+commentRouter.get("/", CommentsController.getCommentsByPost);
 
-commentRouter.post("/", (req, res) => {
-  const postId = req.params.postId;
-  const commentData = req.body;
-  // add comment to postId
-  res.json(commentData); // replace with saved comment
-});
+commentRouter.post(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  CommentsController.createComment
+);
 
-commentRouter.put("/:id", (req, res) => {
-  const postId = req.params.postId;
-  const commentId = req.params.id;
-  const updatedData = req.body;
-  // update comment with commentId on postId
-  res.json(updatedData); // replace with updated comment
-});
+commentRouter.put(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  CommentsController.updateComment
+);
 
-commentRouter.delete("/:id", (req, res) => {
-  const postId = req.params.postId;
-  const commentId = req.params.id;
-  // delete comment with commentId on postId
-  res.json({ deleted: commentId });
-});
+commentRouter.delete(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  CommentsController.deleteComment
+);
 
 module.exports = commentRouter;
