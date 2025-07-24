@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const PostsController = require("../controllers/postsController");
 const { isAuthor } = require("../utils/checkStatus");
+const passport = require("passport");
 const postRouter = Router();
 
 postRouter.get("/", PostsController.getAllPosts);

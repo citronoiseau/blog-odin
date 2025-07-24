@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const CommentsController = require("../controllers/commentsController");
-
+const passport = require("passport");
 const commentRouter = Router({ mergeParams: true });
 
 commentRouter.get("/", CommentsController.getCommentsByPost);
