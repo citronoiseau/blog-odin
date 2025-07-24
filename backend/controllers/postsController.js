@@ -73,10 +73,10 @@ class PostsController {
     const post = await PostService.getPostById(id);
 
     if (!post) {
-      return res.status(404).json("Folder not found");
+      return res.status(404).json("Post not found");
     }
     if (post.authorId !== userId) {
-      return res.status(403).json("Forbidden: You do not own this folder");
+      return res.status(403).json("Forbidden: You do not own this post");
     }
 
     await PostService.updatePost(id, title, content);
@@ -92,7 +92,7 @@ class PostsController {
       return res.status(404).send("Post not found");
     }
     if (post.userId !== userId) {
-      return res.status(403).send("Forbidden: You do not own this folder");
+      return res.status(403).send("Forbidden: You do not own this post");
     }
 
     await PostService.deletePost(id);
