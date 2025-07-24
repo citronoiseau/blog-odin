@@ -2,40 +2,9 @@ const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 const UserService = require("../prisma/services/user.service");
 const bcrypt = require("bcryptjs");
+const { validateUser } = require("../utils/validators");
 
 class UsersController {
-  validateUser = [
-    body("first_name")
-      .trim()
-      .isLength({ min: 2, max: 30 })
-      .withMessage("First name must be 2 to 30 characters"),
-    body("last_name")
-      .trim()
-      .isLength({ min: 2, max: 30 })
-      .withMessage("Last name must be 2 to 30 characters"),
-    body("email")
-      .trim()
-      .toLowerCase()
-      .isEmail()
-      .withMessage("Enter a valid email")
-      .custom(async (value) => {
-        const user = await UserService.getUserByEmail(value);
-        if (user) {
-          throw new Error("Email already in use");
-        }
-        return true;
-      }),
-    body("password")
-      .isLength({ min: 3 })
-      .withMessage("Password must be at least 3 characters"),
-    body("passwordConfirmation").custom((value, { req }) => {
-      if (value !== req.body.password) {
-        throw new Error("Passwords do not match");
-      }
-      return true;
-    }),
-  ];
-
   signUp = [
     ...validateUser,
     asyncHandler(async (req, res) => {

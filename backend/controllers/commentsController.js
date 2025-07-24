@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 const CommentService = require("../prisma/services/comment.service");
+const { validateComment } = require("../utils/validators");
 
 class CommentsController {
   getCommentsByPost = asyncHandler(async (req, res) => {
@@ -9,13 +10,6 @@ class CommentsController {
 
     res.json(comments);
   });
-
-  validateComment = [
-    body("content")
-      .trim()
-      .isLength({ min: 3 })
-      .withMessage("Content must be at least 3 characters"),
-  ];
 
   createComment = [
     ...validateComment,
