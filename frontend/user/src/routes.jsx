@@ -1,16 +1,36 @@
 import App from "./App";
+import Homepage from "./pages/Homepage";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import PostDetails from "./pages/PostDetails";
+import PublicRoute from "./utils/PublicRoute";
 
-const router = createBrowserRouter([
+const routes = [
   {
     path: "/",
     element: <App />,
     children: [
-      { path: "login", element: <Login /> },
-      { path: "signup", element: <Signup /> },
-      { path: "posts", element: <PostsPage /> },
+      { index: true, element: <Homepage /> }, // default Homepage
+      {
+        path: "login",
+        element: (
+          <PublicRoute>
+            <Login />
+          </PublicRoute>
+        ),
+      },
+      {
+        path: "signup",
+        element: (
+          <PublicRoute>
+            {" "}
+            <Signup />{" "}
+          </PublicRoute>
+        ),
+      },
       { path: "posts/:postId", element: <PostDetails /> },
     ],
   },
-]);
+];
 
 export default routes;
