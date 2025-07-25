@@ -1,8 +1,8 @@
 import PostCard from "../components/PostCard";
-import useBlogAPI from "../utils/useBlogAPI";
+import { usePosts } from "../hooks/usePosts";
 
 function Homepage() {
-  const { posts, loading, error } = useBlogAPI();
+  const { posts, loading, error } = usePosts();
 
   if (loading) return <div>Loading posts...</div>;
   if (error) return <div style={{ color: "red" }}>Error: {error}</div>;

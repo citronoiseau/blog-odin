@@ -1,26 +1,11 @@
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { usePost } from "../hooks/usePost";
 
 const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:3000";
 
 function PostDetails() {
   const { postId } = useParams(); // get :postId from URL
-  const [post, setPost] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    fetch(`${API_BASE}/posts/${postId}`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`Error ${response.status}: ${response.statusText}`);
-        }
-        return response.json();
-      })
-      .then((data) => setPost(data))
-      .catch((err) => setError(err.message))
-      .finally(() => setLoading(false));
-  }, [postId]);
+  const { post, loading, error } = usePost(postId);
 
   if (loading) return <div>Loading post...</div>;
   if (error) return <div style={{ color: "red" }}>Error: {error}</div>;
