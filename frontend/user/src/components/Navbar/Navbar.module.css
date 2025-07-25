@@ -1,0 +1,52 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #222;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+.primary {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.navLink {
+  color: white;
+  text-decoration: none;
+  margin-left: 1rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.navLink:first-child {
+  margin-left: 0;
+}
+
+.navLink:hover,
+.navLink.active {
+  color: #1e90ff;
+}
+
+.secondary {
+  display: flex;
+  align-items: center;
+}
+
+.logoutButton {
+  background-color: transparent;
+  border: 1.5px solid white;
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.logoutButton:hover {
+  background-color: white;
+  color: #222;
+}
