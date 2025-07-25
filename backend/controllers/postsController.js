@@ -10,6 +10,16 @@ class PostsController {
     res.json(posts);
   });
 
+  getPost = asyncHandler(async (req, res) => {
+    const { id } = req.params;
+    const post = await PostService.getPostById(id);
+    if (!post) {
+      return res.status(404).json("Post not found");
+    }
+
+    res.status(201).json(post);
+  });
+
   createPost = [
     ...validatePost,
     asyncHandler(async (req, res) => {
@@ -19,7 +29,7 @@ class PostsController {
       }
 
       const authorId = res.locals.user.id;
-      7;
+
       const { title, content, isPublished } = req.body;
 
       const post = await PostService.createPost({

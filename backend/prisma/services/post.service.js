@@ -4,10 +4,18 @@ class PostService {
   async getAllPosts() {
     return await prisma.post.findMany({
       where: { isPublished: true },
+      include: {
+        author: {
+          select: {
+            firstName: true,
+            lastName: true,
+          },
+        },
+      },
     });
   }
 
-  async getPostByTitle() {
+  async getPostByTitle(authorId, title) {
     return await prisma.post.findUnique({
       where: {
         authorId_title: {
@@ -20,8 +28,24 @@ class PostService {
 
   async getPostById(id) {
     return await prisma.post.findUnique({
-      where: {
-        id: id,
+      where: { id: Number(id) },
+      include: {
+        author: {
+          select: {
+            firstName: true,
+            lastName: true,
+          },
+        },
+        comments: {
+          include: {
+            author: {
+              select: {
+                firstName: true,
+                lastName: true,
+              },
+            },
+          },
+        },
       },
     });
   }
