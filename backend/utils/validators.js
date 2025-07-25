@@ -41,7 +41,7 @@ const validatePost = [
       if (!authorId) {
         throw new Error("Author not specified");
       }
-      const exists = PostService.getPostByTitle();
+      const exists = await PostService.getPostByTitle(authorId, value);
 
       if (exists) {
         throw new Error("You already have a post with this title");
