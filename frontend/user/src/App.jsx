@@ -1,13 +1,13 @@
 import { Outlet } from "react-router-dom";
-import Header from "./components/Header";
+import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer";
 
 import "./App.css";
 
 function App() {
   return (
-    <div>
-      <Header />
+    <div className="app">
+      <Navbar />
       <main>
         <Outlet />
       </main>
