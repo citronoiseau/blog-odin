@@ -1,5 +1,160 @@
+import { useState } from "react";
+import { NavLink } from "react-router-dom";
+import { useSignUser } from "../hooks/useAPI";
+
 function Signup() {
-  return <h1>Sign up</h1>;
+  const { signUser, error } = useSignUser();
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+  const [formData, setFormData] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+    password: "",
+    passwordConfirmation: "",
+  });
+
+  const togglePassword = (field) => {
+    if (field === "password") {
+      setPasswordVisible((prev) => !prev);
+    } else {
+      setConfirmPasswordVisible((prev) => !prev);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+
+    if (name === "passwordConfirmation" || name === "password") {
+      setPasswordError(
+        name === "passwordConfirmation" && value !== formData.password
+      );
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (formData.password !== formData.passwordConfirmation) {
+      setPasswordError(true);
+      return;
+    }
+    try {
+      console.log("Form submitted:", formData);
+      await signUser(formData);
+    } catch (err) {
+      console.error("Sign-up failed:", err);
+    }
+  };
+
+  return (
+    <div>
+      {error && (
+        <div style={{ color: "red" }}>
+          {error.map((err, i) => (
+            <p key={i}>{err.msg}</p>
+          ))}
+        </div>
+      )}
+      <form onSubmit={handleSubmit} className="register-form">
+        <div className="input-form">
+          <label htmlFor="first_name">First name: </label>
+          <input
+            type="text"
+            name="first_name"
+            id="first_name"
+            value={formData.first_name}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+
+        <div className="input-form">
+          <label htmlFor="last_name">Last name: </label>
+          <input
+            type="text"
+            name="last_name"
+            id="last_name"
+            value={formData.last_name}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        <div className="input-form">
+          <label htmlFor="email">Email: </label>
+          <input
+            type="text"
+            name="email"
+            id="email"
+            value={formData.email}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+
+        <div className="input-form">
+          <label htmlFor="password">Password: </label>
+          <div className="input-icon-container">
+            <input
+              type={passwordVisible ? "text" : "password"}
+              name="password"
+              id="password"
+              value={formData.password}
+              onChange={handleInputChange}
+              required
+              minLength="3"
+              pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{3,}$"
+              title="Password must be at least 3 characters and contain at least one letter and one number"
+            />
+            <span
+              className="toggle-password"
+              onClick={() => togglePassword("password")}
+            >
+              {passwordVisible ? "🙈" : "🙉"}
+            </span>
+          </div>
+        </div>
+
+        <div className="input-form">
+          <label htmlFor="passwordConfirmation">Confirm Password: </label>
+          <div className="input-icon-container">
+            <input
+              type={confirmPasswordVisible ? "text" : "password"}
+              name="passwordConfirmation"
+              id="passwordConfirmation"
+              value={formData.passwordConfirmation}
+              onChange={handleInputChange}
+              required
+            />
+            <span
+              className="toggle-password"
+              onClick={() => togglePassword("passwordConfirmation")}
+            >
+              {confirmPasswordVisible ? "🙈" : "🙉"}
+            </span>
+          </div>
+        </div>
+
+        {passwordError && (
+          <p style={{ color: "red" }}>Passwords do not match.</p>
+        )}
+
+        <button type="submit">Register</button>
+      </form>
+      <div className="links-container">
+        <p>
+          Already registered?{" "}
+          <NavLink to="/login" className="navLink">
+            Login now
+          </NavLink>
+        </p>
+        <NavLink to="/" className="navLink">
+          Homepage
+        </NavLink>
+      </div>
+    </div>
+  );
 }
 
 export default Signup;
