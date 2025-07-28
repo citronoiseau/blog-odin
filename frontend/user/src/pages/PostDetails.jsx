@@ -1,9 +1,11 @@
 import { useParams } from "react-router-dom";
-import { usePost } from "../hooks/usePost";
-
-const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:3000";
+import { usePost } from "../hooks/useAPI";
+import CommentForm from "../components/CommentForm";
+import { NavLink } from "react-router-dom";
+import { useAuth } from "../utils/AuthContext";
 
 function PostDetails() {
+  const { user } = useAuth();
   const { postId } = useParams(); // get :postId from URL
   const { post, loading, error } = usePost(postId);
 
@@ -20,14 +22,30 @@ function PostDetails() {
         </p>
       </div>
       <div className="post-comments">
-        {post.comments.map((comment) => (
-          <div key={comment.id} className="comment">
-            <p>{comment.content}</p>
-            <small>
-              By {comment.author.firstName} {comment.author.lastName}
-            </small>
-          </div>
-        ))}
+        <div className="user-comment">
+          {user ? (
+            <CommentForm />
+          ) : (
+            <>
+              <div>You have to login to leave comments</div>
+              <NavLink to="/login" className="navLink">
+                Login now
+              </NavLink>
+            </>
+          )}
+        </div>
+        {post.comments && post.comments.length > 0 ? (
+          post.comments.map((comment) => (
+            <div key={comment.id} className="comment">
+              <p>{comment.content}</p>
+              <small>
+                By {comment.author.firstName} {comment.author.lastName}
+              </small>
+            </div>
+          ))
+        ) : (
+          <p>No comments yet</p>
+        )}
       </div>
     </div>
   );

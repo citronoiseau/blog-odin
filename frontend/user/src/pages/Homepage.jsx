@@ -1,5 +1,5 @@
 import PostCard from "../components/PostCard";
-import { usePosts } from "../hooks/usePosts";
+import { usePosts } from "../hooks/useAPI";
 
 function Homepage() {
   const { posts, loading, error } = usePosts();
