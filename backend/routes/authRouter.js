@@ -22,7 +22,14 @@ authRouter.post("/login", (req, res, next) => {
         expiresIn: "1h",
       });
 
-      return res.json({ token });
+      const safeUser = {
+        id: user.id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+      };
+
+      return res.json({ token, safeUser });
     });
   })(req, res, next);
 });
