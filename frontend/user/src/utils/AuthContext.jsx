@@ -6,7 +6,11 @@ export const useAuth = () => useContext(AuthContext);
 
 export function AuthProvider({ children }) {
   const [token, setToken] = useState(() => localStorage.getItem("jwt"));
-  const [user, setUser] = useState(null);
+  const [user, setUser] = seState({
+    id: "",
+    first_name: "",
+    last_name: "",
+  });
 
   const login = (jwtToken, userData) => {
     setUser(userData);

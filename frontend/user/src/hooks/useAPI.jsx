@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import blogAPI from "../utils/blogAPI";
 import { useToast } from "../utils/ToastContext";
+import { useAuth } from "../utils/AuthContext";
 
 export function usePost(postId) {
   const [post, setPost] = useState(null);
@@ -57,4 +58,30 @@ export function useSignUser() {
   };
 
   return { signUser, error };
+}
+
+export function useLoginUser() {
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+  const { showToast } = useToast();
+  const { login } = useAuth();
+
+  const loginUser = async (userdata) => {
+    setError(null);
+    try {
+      const result = await blogAPI.login(userdata);
+      login(result.token, result.user);
+      showToast("Logged in successfully", false, 3000);
+      navigate("/");
+    } catch (err) {
+      if (err.errors) {
+        setError(err.errors);
+      } else {
+        setError([{ msg: err.message || "Login failed" }]);
+      }
+      throw err;
+    }
+  };
+
+  return { loginUser, error };
 }
