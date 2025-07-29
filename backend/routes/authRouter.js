@@ -29,7 +29,7 @@ authRouter.post("/login", (req, res, next) => {
         email: user.email,
       };
 
-      return res.json({ token, safeUser });
+      return res.json({ token, user: safeUser });
     });
   })(req, res, next);
 });
