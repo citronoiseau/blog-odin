@@ -13,7 +13,7 @@ class CommentService {
     });
   }
 
-  async createComment(postId, userId, content) {
+  async createComment({ postId, userId, content }) {
     return await prisma.comment.create({
       data: {
         content: content,
@@ -27,7 +27,7 @@ class CommentService {
     });
   }
 
-  async updateComment(id, content) {
+  async updateComment({ id, content }) {
     return await prisma.comment.update({
       where: { id: Number(id) },
       data: { content },

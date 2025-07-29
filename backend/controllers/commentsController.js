@@ -26,15 +26,22 @@ class CommentsController {
       }
 
       const userId = res.locals.user.id;
-      const { content } = req.body;
+      try {
+        const { content } = req.body;
 
-      const comment = await CommentService.createComment(
-        postId,
-        userId,
-        content
-      );
+        const comment = await CommentService.createComment({
+          postId,
+          userId,
+          content,
+        });
 
-      res.status(201).json({ message: "Comment posted successfully", comment });
+        res
+          .status(201)
+          .json({ message: "Comment posted successfully", comment });
+      } catch (err) {
+        console.error("Comment creation error:", err);
+        res.status(500).json({ error: "Server error", details: err.message });
+      }
     }),
   ];
 
@@ -54,9 +61,15 @@ class CommentsController {
     if (!comment) return res.status(404).json("Comment not found");
     if (comment.authorId !== userId)
       return res.status(403).json("Forbidden: You do not own this comment");
-
-    await CommentService.updateComment(id, content);
-    res.status(200).json({ message: "Comment updated successfully", comment });
+    try {
+      await CommentService.updateComment({ id, content });
+      res
+        .status(200)
+        .json({ message: "Comment updated successfully", comment });
+    } catch (err) {
+      console.error("Comment update error:", err);
+      res.status(500).json({ error: "Server error", details: err.message });
+    }
   });
 
   deleteComment = asyncHandler(async (req, res) => {

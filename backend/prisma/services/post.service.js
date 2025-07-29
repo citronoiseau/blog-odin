@@ -50,7 +50,7 @@ class PostService {
     });
   }
 
-  async createPost(title, content, isPublished, authorId) {
+  async createPost({ title, content, isPublished, authorId }) {
     return await prisma.post.create({
       data: {
         title: title,
@@ -61,7 +61,7 @@ class PostService {
     });
   }
 
-  async updatePost(id, title, content) {
+  async updatePost({ id, title, content }) {
     return await prisma.post.update({
       where: { id: Number(id) },
       data: { title: title, content: content },
