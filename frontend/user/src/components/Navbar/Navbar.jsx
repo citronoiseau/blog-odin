@@ -23,7 +23,7 @@ const NavBar = () => {
             <NavLink to="/login" className={styles.navLink}>
               Login
             </NavLink>
-            <NavLink to="/signup" className={styles.navLink}>
+            <NavLink to="/sign-up" className={styles.navLink}>
               Signup
             </NavLink>
           </>

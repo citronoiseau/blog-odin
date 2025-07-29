@@ -20,7 +20,7 @@ const routes = [
         ),
       },
       {
-        path: "signup",
+        path: "sign-up",
         element: (
           <PublicRoute>
             {" "}
