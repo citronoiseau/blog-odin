@@ -13,17 +13,22 @@ class UsersController {
         return res.status(400).json({ errors: errors.array() });
       }
 
-      const { first_name, last_name, email, password } = req.body;
-      const hashedPassword = await bcrypt.hash(password, 10);
+      try {
+        const { first_name, last_name, email, password } = req.body;
+        const hashedPassword = await bcrypt.hash(password, 10);
 
-      await UserService.createUser({
-        first_name,
-        last_name,
-        email,
-        password: hashedPassword,
-      });
+        await UserService.createUser({
+          first_name,
+          last_name,
+          email,
+          password: hashedPassword,
+        });
 
-      res.status(201).json({ message: "User created successfully" });
+        res.status(201).json({ message: "User created successfully" });
+      } catch (err) {
+        console.error("Sign-up error:", err);
+        res.status(500).json({ error: "Server error", details: err.message });
+      }
     }),
   ];
 

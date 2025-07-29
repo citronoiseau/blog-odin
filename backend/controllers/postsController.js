@@ -29,17 +29,21 @@ class PostsController {
       }
 
       const authorId = res.locals.user.id;
+      try {
+        const { title, content, isPublished } = req.body;
 
-      const { title, content, isPublished } = req.body;
+        const post = await PostService.createPost({
+          title,
+          content,
+          isPublished,
+          authorId,
+        });
 
-      const post = await PostService.createPost({
-        title,
-        content,
-        isPublished,
-        authorId,
-      });
-
-      res.status(201).json({ message: "Post created successfully", post });
+        res.status(201).json({ message: "Post created successfully", post });
+      } catch (err) {
+        console.error("Post creation error:", err);
+        res.status(500).json({ error: "Server error", details: err.message });
+      }
     }),
   ];
 
@@ -55,9 +59,13 @@ class PostsController {
     if (post.authorId !== userId) {
       return res.status(403).json("Forbidden: You do not own this post");
     }
-
-    await PostService.updatePost(id, title, content);
-    res.status(201).json({ message: "Post updated successfully", post });
+    try {
+      await PostService.updatePost({ id, title, content });
+      res.status(201).json({ message: "Post updated successfully", post });
+    } catch (err) {
+      console.error("Post update error:", err);
+      res.status(500).json({ error: "Server error", details: err.message });
+    }
   });
 
   deletePost = asyncHandler(async (req, res) => {
