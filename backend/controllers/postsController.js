@@ -28,7 +28,7 @@ class PostsController {
         return res.status(400).json({ errors: errors.array() });
       }
 
-      const authorId = res.locals.user.id;
+      const authorId = req.user.id;
       try {
         const { title, content, isPublished } = req.body;
 
@@ -50,7 +50,7 @@ class PostsController {
   updatePost = asyncHandler(async (req, res) => {
     const { id } = req.params;
     const { title, content } = req.body;
-    const userId = res.locals.user.id;
+    const userId = req.user.id;
     const post = await PostService.getPostById(id);
 
     if (!post) {
@@ -71,7 +71,7 @@ class PostsController {
   deletePost = asyncHandler(async (req, res) => {
     const { id } = req.params;
     const post = await PostService.getPostById(id);
-    const userId = res.locals.user.id;
+    const userId = req.user.id;
 
     if (!post) {
       return res.status(404).send("Post not found");
