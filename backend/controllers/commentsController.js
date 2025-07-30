@@ -26,7 +26,7 @@ class CommentsController {
         return res.status(404).json("Post not found");
       }
 
-      const userId = res.locals.user.id;
+      const userId = req.user.id;
       try {
         const { content } = req.body;
 
@@ -49,7 +49,7 @@ class CommentsController {
   updateComment = asyncHandler(async (req, res) => {
     const { id } = req.params;
     const { content } = req.body;
-    const userId = res.locals.user.id;
+    const userId = req.user.id;
     const postId = req.params.postId;
 
     const post = await PostService.getPostById(postId);
@@ -75,7 +75,7 @@ class CommentsController {
 
   deleteComment = asyncHandler(async (req, res) => {
     const { id } = req.params;
-    const userId = res.locals.user.id;
+    const userId = req.user.id;
     const postId = req.params.postId;
     const post = await PostService.getPostById(postId);
 
