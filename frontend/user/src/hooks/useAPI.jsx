@@ -11,15 +11,23 @@ export function usePost(postId) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    blogAPI
+  const fetchPost = () => {
+    setLoading(true);
+    setError(null);
+    return blogAPI
       .fetchPostById(postId)
       .then(setPost)
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
+  };
+
+  useEffect(() => {
+    if (postId) {
+      fetchPost();
+    }
   }, [postId]);
 
-  return { post, loading, error };
+  return { post, loading, error, refetch: fetchPost };
 }
 
 export function usePosts() {
@@ -95,7 +103,7 @@ export function useCreateComment() {
   const { showToast } = useToast();
   const { token } = useAuth();
 
-  const createComment = async (commentdata, postId) => {
+  const createComment = async (commentdata, postId, onCommentCreated) => {
     if (!token || isTokenExpired(token)) {
       logout();
       navigate("/login");
@@ -105,7 +113,9 @@ export function useCreateComment() {
     try {
       const result = await blogAPI.createComment(commentdata, postId);
       showToast(result.message, false, 3000);
-      navigate(`/posts/${postId}`);
+      if (onCommentCreated) {
+        onCommentCreated();
+      }
     } catch (err) {
       if (err.errors) {
         setError(err.errors);

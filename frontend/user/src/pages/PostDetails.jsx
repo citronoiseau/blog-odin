@@ -7,7 +7,7 @@ import { useAuth } from "../utils/AuthContext";
 function PostDetails() {
   const { user } = useAuth();
   const { postId } = useParams(); // get :postId from URL
-  const { post, loading, error } = usePost(postId);
+  const { post, loading, error, refetch } = usePost(postId);
 
   if (loading) return <div>Loading post...</div>;
   if (error) return <div style={{ color: "red" }}>Error: {error}</div>;
@@ -24,7 +24,7 @@ function PostDetails() {
       <div className="post-comments">
         <div className="user-comment">
           {user ? (
-            <CommentForm postId={postId} />
+            <CommentForm postId={postId} onCommentCreated={refetch} />
           ) : (
             <>
               <div>You have to login to leave comments</div>

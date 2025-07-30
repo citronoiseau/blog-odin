@@ -1,6 +1,6 @@
 import { useCreateComment } from "../hooks/useAPI";
 import { useState } from "react";
-const CommentForm = ({ postId }) => {
+const CommentForm = ({ postId, onCommentCreated }) => {
   const { createComment, error } = useCreateComment();
   const [formData, setFormData] = useState({
     content: "",
@@ -15,7 +15,8 @@ const CommentForm = ({ postId }) => {
     e.preventDefault();
     try {
       console.log("Comment submitted:", formData);
-      await createComment(formData, postId);
+      await createComment(formData, postId, onCommentCreated);
+      setFormData({ content: "" });
     } catch (err) {
       console.error("Failed to create a comment:", err);
     }
