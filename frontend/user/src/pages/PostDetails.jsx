@@ -24,7 +24,7 @@ function PostDetails() {
       <div className="post-comments">
         <div className="user-comment">
           {user ? (
-            <CommentForm />
+            <CommentForm postId={postId} />
           ) : (
             <>
               <div>You have to login to leave comments</div>

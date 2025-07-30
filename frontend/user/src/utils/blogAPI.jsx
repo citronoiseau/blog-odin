@@ -15,11 +15,11 @@ class blogAPI {
     return response.json();
   }
 
-  async signUp(userdata) {
+  async signUp(userData) {
     const response = await fetch(`${API_BASE}/sign-up`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(userdata),
+      body: JSON.stringify(userData),
     });
 
     const data = await response.json();
@@ -35,11 +35,35 @@ class blogAPI {
     return data;
   }
 
-  async login(userdata) {
+  async login(userData) {
     const response = await fetch(`${API_BASE}/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(userdata),
+      body: JSON.stringify(userData),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw {
+        status: response.status,
+        errors: data.errors || [{ msg: data.message || "Unknown error" }],
+        message: data.message || "Unknown error",
+      };
+    }
+
+    return data;
+  }
+
+  async createComment(commentData, postId) {
+    const token = localStorage.getItem("jwt");
+    const response = await fetch(`${API_BASE}/posts/${postId}/comments`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(commentData),
     });
 
     const data = await response.json();

@@ -3,7 +3,9 @@ import { useNavigate } from "react-router-dom";
 import blogAPI from "../utils/blogAPI";
 import { useToast } from "../utils/ToastContext";
 import { useAuth } from "../utils/AuthContext";
+import { isTokenExpired } from "../utils/jwt";
 
+// getting posts
 export function usePost(postId) {
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -35,7 +37,7 @@ export function usePosts() {
 
   return { posts, loading, error };
 }
-
+//getting user
 export function useSignUser() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -84,4 +86,35 @@ export function useLoginUser() {
   };
 
   return { loginUser, error };
+}
+
+// getting comments
+export function useCreateComment() {
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+  const { showToast } = useToast();
+  const { token } = useAuth();
+
+  const createComment = async (commentdata, postId) => {
+    if (!token || isTokenExpired(token)) {
+      logout();
+      navigate("/login");
+      return;
+    }
+    setError(null);
+    try {
+      const result = await blogAPI.createComment(commentdata, postId);
+      showToast(result.message, false, 3000);
+      navigate(`/posts/${postId}`);
+    } catch (err) {
+      if (err.errors) {
+        setError(err.errors);
+      } else {
+        setError([{ msg: err.message || "Comment creation failed" }]);
+      }
+      throw err;
+    }
+  };
+
+  return { createComment, error };
 }

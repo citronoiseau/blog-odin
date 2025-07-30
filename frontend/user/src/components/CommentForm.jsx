@@ -1,28 +1,52 @@
-const CommentForm = () => {
-  const handleSubmit = (e) => {
+import { useCreateComment } from "../hooks/useAPI";
+import { useState } from "react";
+const CommentForm = ({ postId }) => {
+  const { createComment, error } = useCreateComment();
+  const [formData, setFormData] = useState({
+    content: "",
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission (e.g., send to API)
-    const formData = new FormData(e.target);
-    console.log("Submitted:", formData.get("text"));
+    try {
+      console.log("Comment submitted:", formData);
+      await createComment(formData, postId);
+    } catch (err) {
+      console.error("Failed to create a comment:", err);
+    }
   };
 
   return (
     <div>
-      <form id="create-form" onSubmit={handleSubmit}>
-        <h3>Create a new comment</h3>
+      {error && (
+        <div style={{ color: "red" }}>
+          {error.map((err, i) => (
+            <p key={i}>{err.msg}</p>
+          ))}
+        </div>
+      )}
+      <form onSubmit={handleSubmit} className="create-form">
+        <h3>Add a new comment</h3>
         <div className="input-form">
           <label htmlFor="text">Text: </label>
           <textarea
-            name="text"
-            id="text"
+            name="content"
+            id="content"
+            value={formData.content}
             minLength="2"
             maxLength="30"
+            onChange={handleInputChange}
             required
           />
         </div>
 
         <button type="submit" className="create-button">
-          Create
+          Add
         </button>
       </form>
     </div>
