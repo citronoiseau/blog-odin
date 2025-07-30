@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 const CommentService = require("../prisma/services/comment.service");
+const PostService = require("../prisma/services/post.service");
 const { validateComment } = require("../utils/validators");
 
 class CommentsController {
