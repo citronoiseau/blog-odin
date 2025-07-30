@@ -23,8 +23,7 @@ const routes = [
         path: "sign-up",
         element: (
           <PublicRoute>
-            {" "}
-            <Signup />{" "}
+            <Signup />
           </PublicRoute>
         ),
       },
