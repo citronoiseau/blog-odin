@@ -40,6 +40,7 @@ class PostService {
           include: {
             author: {
               select: {
+                id: true,
                 firstName: true,
                 lastName: true,
               },
