@@ -4,6 +4,9 @@ class PostService {
   async getAllPosts() {
     return await prisma.post.findMany({
       where: { isPublished: true },
+      orderBy: {
+        createdAt: "desc",
+      },
       include: {
         author: {
           select: {
@@ -37,6 +40,9 @@ class PostService {
           },
         },
         comments: {
+          orderBy: {
+            createdAt: "desc",
+          },
           include: {
             author: {
               select: {
