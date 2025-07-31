@@ -128,3 +128,76 @@ export function useCreateComment() {
 
   return { createComment, error };
 }
+
+export function useUpdateComment() {
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+  const { showToast } = useToast();
+  const { token } = useAuth();
+
+  const updateComment = async (
+    commentId,
+    commentdata,
+    postId,
+    onCommentUpdated
+  ) => {
+    if (!token || isTokenExpired(token)) {
+      logout();
+      navigate("/login");
+      return;
+    }
+    setError(null);
+    try {
+      const result = await blogAPI.updateComment(
+        commentId,
+        commentdata,
+        postId
+      );
+      showToast(result.message, false, 3000);
+      if (onCommentUpdated) {
+        onCommentUpdated();
+      }
+    } catch (err) {
+      if (err.errors) {
+        setError(err.errors);
+      } else {
+        setError([{ msg: err.message || "Update failed" }]);
+      }
+      throw err;
+    }
+  };
+
+  return { updateComment, error };
+}
+
+export function useDeleteComment() {
+  const [deleteError, setError] = useState(null);
+  const navigate = useNavigate();
+  const { showToast } = useToast();
+  const { token } = useAuth();
+
+  const deleteComment = async (commentId, postId, onCommentUpdated) => {
+    if (!token || isTokenExpired(token)) {
+      logout();
+      navigate("/login");
+      return;
+    }
+    setError(null);
+    try {
+      const result = await blogAPI.deleteComment(commentId, postId);
+      showToast(result.message, false, 3000);
+      if (onCommentUpdated) {
+        onCommentUpdated();
+      }
+    } catch (err) {
+      if (err.errors) {
+        setError(err.errors);
+      } else {
+        setError([{ msg: err.message || "Delete failed" }]);
+      }
+      throw err;
+    }
+  };
+
+  return { deleteComment, deleteError };
+}

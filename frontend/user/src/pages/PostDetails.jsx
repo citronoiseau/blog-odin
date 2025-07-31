@@ -3,6 +3,7 @@ import { usePost } from "../hooks/useAPI";
 import CommentForm from "../components/CommentForm";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../utils/AuthContext";
+import Comment from "../components/Comment";
 
 function PostDetails() {
   const { user } = useAuth();
@@ -36,12 +37,13 @@ function PostDetails() {
         </div>
         {post.comments && post.comments.length > 0 ? (
           post.comments.map((comment) => (
-            <div key={comment.id} className="comment">
-              <p>{comment.content}</p>
-              <small>
-                By {comment.author.firstName} {comment.author.lastName}
-              </small>
-            </div>
+            <Comment
+              key={comment.id}
+              comment={comment}
+              currentUserId={user?.id}
+              onCommentUpdate={refetch}
+              postId={postId}
+            />
           ))
         ) : (
           <p>No comments yet</p>
