@@ -6,14 +6,14 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  min-height: 100vh; /* take full height */
-  width: 100%; /* full width */
+  width: 100%;
+  height: 100%;
   box-sizing: border-box;
 }
 
 .userContainer {
   padding: 10px 20px;
-  max-width: 1200px; /* align with posts container */
+  max-width: 1200px;
   width: 100%;
   margin: 0 auto;
 }
@@ -34,12 +34,9 @@
 
 .postsContainer {
   display: grid;
-  grid-template-columns: repeat(
-    auto-fill,
-    minmax(300px, 1fr)
-  ); /* 3 cards on wider screens */
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
-  max-width: 1200px; /* keep nice centered width */
+  max-width: 1200px;
   width: 100%;
   margin: 0 auto;
 }
