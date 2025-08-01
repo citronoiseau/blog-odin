@@ -9,13 +9,16 @@ const NavBar = () => {
     <nav className={styles.navbar}>
       <div className={styles.primary}>
         <NavLink to="/" end className={styles.navLink}>
-          Bloggo
+          Typpo
         </NavLink>
       </div>
 
       <div className={styles.secondary}>
         {user ? (
-          <button className={styles.logoutButton} onClick={logout}>
+          <button
+            className={`${styles.logoutButton} ${styles.navLink}`}
+            onClick={logout}
+          >
             Logout
           </button>
         ) : (
@@ -24,7 +27,7 @@ const NavBar = () => {
               Login
             </NavLink>
             <NavLink to="/sign-up" className={styles.navLink}>
-              Signup
+              Sign-up
             </NavLink>
           </>
         )}
