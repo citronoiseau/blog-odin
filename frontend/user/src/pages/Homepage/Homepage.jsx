@@ -28,11 +28,11 @@ function Homepage() {
           </div>
         ) : (
           <div>
-            <h2>
-              {" "}
-              Welcome to Typpo! You can read the posts below, but to leave
-              comments you have to login.
-            </h2>
+            <h2>Welcome to Typpo!</h2>
+            <h3>
+              You can read the posts below, but to leave comments you have to
+              login.
+            </h3>
           </div>
         )}
       </div>

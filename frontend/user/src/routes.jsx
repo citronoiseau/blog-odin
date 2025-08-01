@@ -1,7 +1,7 @@
 import App from "./App";
 import Homepage from "./pages/Homepage/Homepage";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
+import Login from "./pages/Signing/Login";
+import Signup from "./pages/Signing/Signup";
 import PostDetails from "./pages/PostDetails/PostDetails";
 import PublicRoute from "./utils/PublicRoute";
 

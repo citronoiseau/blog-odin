@@ -30,6 +30,7 @@
   box-shadow: 0 0 0 2px rgba(201, 185, 154, 0.3);
 }
 .buttons {
+  font-family: "Special Elite", monospace, Courier, monospace;
   align-self: end;
   display: flex;
   gap: 10px;
@@ -42,7 +43,7 @@
   border-radius: 4px;
   text-decoration: none;
   font-weight: bold;
-  border: 1px solid rgba(0, 0, 0, 0.466);
+  border: 1.5px solid #c9b99a;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 

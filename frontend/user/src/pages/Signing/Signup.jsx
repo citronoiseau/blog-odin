@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { useSignUser } from "../hooks/useAPI";
+import { useSignUser } from "../../hooks/useAPI";
+import styles from "./Signing.module.css";
 
 function Signup() {
   const { signUser, error } = useSignUser();
@@ -49,7 +50,7 @@ function Signup() {
   };
 
   return (
-    <div>
+    <div className={styles.formContainer}>
       {error && (
         <div style={{ color: "red" }}>
           {error.map((err, i) => (
@@ -57,8 +58,8 @@ function Signup() {
           ))}
         </div>
       )}
-      <form onSubmit={handleSubmit} className="register-form">
-        <div className="input-form">
+      <form onSubmit={handleSubmit} className={styles.registerForm}>
+        <div className={styles.inputForm}>
           <label htmlFor="first_name">First name: </label>
           <input
             type="text"
@@ -70,7 +71,7 @@ function Signup() {
           />
         </div>
 
-        <div className="input-form">
+        <div className={styles.inputForm}>
           <label htmlFor="last_name">Last name: </label>
           <input
             type="text"
@@ -81,7 +82,7 @@ function Signup() {
             required
           />
         </div>
-        <div className="input-form">
+        <div className={styles.inputForm}>
           <label htmlFor="email">Email: </label>
           <input
             type="text"
@@ -93,9 +94,9 @@ function Signup() {
           />
         </div>
 
-        <div className="input-form">
+        <div className={styles.inputForm}>
           <label htmlFor="password">Password: </label>
-          <div className="input-icon-container">
+          <div className={styles.inputIconContainer}>
             <input
               type={passwordVisible ? "text" : "password"}
               name="password"
@@ -108,7 +109,7 @@ function Signup() {
               title="Password must be at least 3 characters and contain at least one letter and one number"
             />
             <span
-              className="toggle-password"
+              className={styles.togglePassword}
               onClick={() => togglePassword("password")}
             >
               {passwordVisible ? "🙈" : "🙉"}
@@ -116,9 +117,9 @@ function Signup() {
           </div>
         </div>
 
-        <div className="input-form">
+        <div className={styles.inputForm}>
           <label htmlFor="passwordConfirmation">Confirm Password: </label>
-          <div className="input-icon-container">
+          <div className={styles.inputIconContainer}>
             <input
               type={confirmPasswordVisible ? "text" : "password"}
               name="passwordConfirmation"
@@ -128,7 +129,7 @@ function Signup() {
               required
             />
             <span
-              className="toggle-password"
+              className={styles.togglePassword}
               onClick={() => togglePassword("passwordConfirmation")}
             >
               {confirmPasswordVisible ? "🙈" : "🙉"}
@@ -142,14 +143,14 @@ function Signup() {
 
         <button type="submit">Register</button>
       </form>
-      <div className="links-container">
+      <div className={styles.linksContainer}>
         <p>
           Already registered?{" "}
-          <NavLink to="/login" className="navLink">
+          <NavLink to="/login" className={styles.navLink}>
             Login now
           </NavLink>
         </p>
-        <NavLink to="/" className="navLink">
+        <NavLink to="/" className={styles.navLink}>
           Homepage
         </NavLink>
       </div>

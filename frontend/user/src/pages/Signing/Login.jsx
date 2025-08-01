@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { useLoginUser } from "../hooks/useAPI";
+import { useLoginUser } from "../../hooks/useAPI";
+import styles from "./Signing.module.css";
+
 function Login() {
   const { loginUser, error } = useLoginUser();
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -29,7 +31,7 @@ function Login() {
   };
 
   return (
-    <div>
+    <div className={styles.formContainer}>
       {error && (
         <div style={{ color: "red" }}>
           {error.map((err, i) => (
@@ -37,8 +39,8 @@ function Login() {
           ))}
         </div>
       )}
-      <form onSubmit={handleSubmit} className="register-form">
-        <div className="input-form">
+      <form onSubmit={handleSubmit} className={styles.loginForm}>
+        <div className={styles.inputForm}>
           <label htmlFor="email">Email: </label>
           <input
             type="text"
@@ -50,9 +52,9 @@ function Login() {
           />
         </div>
 
-        <div className="input-form">
+        <div className={styles.inputForm}>
           <label htmlFor="password">Password: </label>
-          <div className="input-icon-container">
+          <div className={styles.inputIconContainer}>
             <input
               type={passwordVisible ? "text" : "password"}
               name="password"
@@ -65,7 +67,7 @@ function Login() {
               title="Password must be at least 3 characters and contain at least one letter and one number"
             />
             <span
-              className="toggle-password"
+              className={styles.togglePassword}
               onClick={() => togglePassword("password")}
             >
               {passwordVisible ? "🙈" : "🙉"}
@@ -75,14 +77,14 @@ function Login() {
 
         <button type="submit"> Login </button>
       </form>
-      <div className="links-container">
+      <div className={styles.linksContainer}>
         <p>
-          Not registered?
-          <NavLink to="/sign-up" className="navLink">
+          Not registered?{" "}
+          <NavLink to="/sign-up" className={styles.navLink}>
             Sign-up now
           </NavLink>
         </p>
-        <NavLink to="/" className="navLink">
+        <NavLink to="/" className={styles.navLink}>
           Homepage
         </NavLink>
       </div>

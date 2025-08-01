@@ -17,6 +17,7 @@
 }
 
 main {
+  font-family: "Special Elite", monospace, Courier, monospace;
   background-color: #f5f1e9;
   flex: 1;
   padding-top: 60px;
