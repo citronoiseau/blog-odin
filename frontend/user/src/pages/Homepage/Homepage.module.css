@@ -1,0 +1,45 @@
+.pageContainer {
+  padding: 20px;
+  font-family: "Special Elite", monospace, Courier, monospace;
+  background-color: #f5f1e9;
+  color: #1a1a1a;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-height: 100vh; /* take full height */
+  width: 100%; /* full width */
+  box-sizing: border-box;
+}
+
+.userContainer {
+  padding: 10px 20px;
+  max-width: 1200px; /* align with posts container */
+  width: 100%;
+  margin: 0 auto;
+}
+
+.userContainer h2 {
+  font-size: 1.6rem;
+  margin: 0;
+}
+
+.noPosts {
+  font-size: 1.2rem;
+  color: #555;
+  text-align: center;
+  padding: 2rem;
+  border: 2px dashed #c9b99a;
+  background-color: #fffef9;
+}
+
+.postsContainer {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(300px, 1fr)
+  ); /* 3 cards on wider screens */
+  gap: 20px;
+  max-width: 1200px; /* keep nice centered width */
+  width: 100%;
+  margin: 0 auto;
+}

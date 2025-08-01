@@ -1,8 +1,8 @@
 import App from "./App";
-import Homepage from "./pages/Homepage";
+import Homepage from "./pages/Homepage/Homepage";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import PostDetails from "./pages/PostDetails";
+import PostDetails from "./pages/PostDetails/PostDetails";
 import PublicRoute from "./utils/PublicRoute";
 
 const routes = [
