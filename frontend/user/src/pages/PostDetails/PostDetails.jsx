@@ -1,9 +1,9 @@
 import { useParams } from "react-router-dom";
 import { usePost } from "../../hooks/useAPI";
-import CommentForm from "../../components/CommentForm";
+import CommentForm from "../../components/CommentForm/CommentForm";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../utils/AuthContext";
-import Comment from "../../components/Comment";
+import Comment from "../../components/Comment/Comment";
 import styles from "./PostDetails.module.css";
 
 function PostDetails() {
@@ -15,24 +15,24 @@ function PostDetails() {
   if (error) return <div style={{ color: "red" }}>Error: {error}</div>;
 
   return (
-    <div className={styles["post-container"]}>
+    <div className={styles.postContainer}>
       <NavLink to="/" className={styles.navLink}>
         Go back
       </NavLink>
-      <div className={styles["post-info"]}>
+      <div className={styles.postInfo}>
         <h1>{post.title}</h1>
-        <p className={styles["content-info"]}>{post.content}</p>
-        <p className={styles["author-info"]}>
+        <p className={styles.contentInfo}>{post.content}</p>
+        <p className={styles.authorInfo}>
           Author: {post.author.firstName} {post.author.lastName}
         </p>
       </div>
 
-      <div className={styles["post-comments"]}>
-        <div className={styles["user-comment"]}>
+      <div className={styles.postComments}>
+        <div className={styles.userComment}>
           {user ? (
             <CommentForm postId={postId} onCommentCreated={refetch} />
           ) : (
-            <div className={styles["login-form"]}>
+            <div className={styles.loginForm}>
               <div>You have to login to leave comments</div>
               <NavLink to="/login" className={styles.navLink}>
                 Login now
@@ -40,7 +40,7 @@ function PostDetails() {
             </div>
           )}
         </div>
-        <div className={styles["comments-container"]}>
+        <div className={styles.commentsContainer}>
           {post.comments && post.comments.length > 0 ? (
             post.comments.map((comment) => (
               <Comment

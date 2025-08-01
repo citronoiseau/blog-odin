@@ -1,5 +1,7 @@
-import { useCreateComment } from "../hooks/useAPI";
+import { useCreateComment } from "../../hooks/useAPI";
 import { useState } from "react";
+import styles from "./CommentForm.module.css";
+
 const CommentForm = ({ postId, onCommentCreated }) => {
   const { createComment, error } = useCreateComment();
   const [formData, setFormData] = useState({
@@ -22,33 +24,38 @@ const CommentForm = ({ postId, onCommentCreated }) => {
     }
   };
 
+  const resetForm = (e) => {
+    setFormData({ content: "" });
+  };
+
   return (
     <div>
       {error && (
-        <div style={{ color: "red" }}>
+        <div className={styles.errorBox}>
           {error.map((err, i) => (
             <p key={i}>{err.msg}</p>
           ))}
         </div>
       )}
-      <form onSubmit={handleSubmit} className="create-form">
-        <h3>Add a new comment</h3>
-        <div className="input-form">
-          <label htmlFor="text">Text: </label>
+      <form onSubmit={handleSubmit} className={styles.createForm}>
+        <div className={styles.inputForm}>
           <textarea
             name="content"
             id="content"
             value={formData.content}
             minLength="2"
-            maxLength="30"
+            maxLength="300"
             onChange={handleInputChange}
+            placeholder="Add a comment"
             required
           />
         </div>
-
-        <button type="submit" className="create-button">
-          Add
-        </button>
+        <div className={styles.buttons}>
+          <button type="button" onClick={resetForm}>
+            Cancel
+          </button>
+          <button type="submit">Comment</button>
+        </div>
       </form>
     </div>
   );

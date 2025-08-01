@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { useUpdateComment, useDeleteComment } from "../hooks/useAPI";
+import { useUpdateComment, useDeleteComment } from "../../hooks/useAPI";
+import styles from "./Comment.module.css";
 
 const Comment = ({ comment, currentUserId, onCommentUpdate, postId }) => {
   const isAuthor = currentUserId === comment.author.id;
@@ -25,7 +26,7 @@ const Comment = ({ comment, currentUserId, onCommentUpdate, postId }) => {
   };
 
   return (
-    <div className="comment">
+    <div className={styles.comment}>
       {isEditing ? (
         <>
           {error && (
@@ -46,28 +47,36 @@ const Comment = ({ comment, currentUserId, onCommentUpdate, postId }) => {
             value={editedContent}
             onChange={(e) => setEditedContent(e.target.value)}
           />
-          <button onClick={handleSave}>Save</button>
-          <button
-            onClick={() => {
-              setEditedContent(comment.content);
-              setIsEditing(false);
-            }}
-          >
-            Cancel
-          </button>
+          <div className={styles.editControls}>
+            <button
+              onClick={() => {
+                setEditedContent(comment.content);
+                setIsEditing(false);
+              }}
+            >
+              Cancel
+            </button>
+            <button onClick={handleSave}>Save</button>
+          </div>
         </>
       ) : (
         <>
           <p>{comment.content}</p>
           {isAuthor && (
-            <div className="controls">
-              <button onClick={() => setIsEditing(true)}>Edit</button>
+            <div className={styles.controls}>
               <button
+                className={styles.iconBtn}
+                onClick={() => setIsEditing(true)}
+              >
+                ✎
+              </button>
+              <button
+                className={styles.iconBtn}
                 onClick={() =>
                   deleteComment(comment.id, postId, onCommentUpdate)
                 }
               >
-                Delete
+                🗑
               </button>
             </div>
           )}

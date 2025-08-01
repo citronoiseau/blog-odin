@@ -1,0 +1,53 @@
+.createForm {
+  border-radius: 6px;
+  font-family: "Special Elite", monospace, Courier, monospace;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.inputForm {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.inputForm textarea {
+  padding: 20px;
+  font-family: "Special Elite", monospace, Courier, monospace;
+  font-size: 1rem;
+  border: 1.5px solid #c9b99a;
+  border-radius: 4px;
+  background-color: #fffef9;
+  min-height: 80px;
+  resize: none;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.inputForm textarea:focus {
+  border-color: #1a1a1a;
+  box-shadow: 0 0 0 2px rgba(201, 185, 154, 0.3);
+}
+.buttons {
+  align-self: end;
+  display: flex;
+  gap: 10px;
+}
+.buttons button {
+  width: 100px;
+  background-color: #c9b99a;
+  color: #1a1a1a;
+  padding: 10px 15px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: bold;
+  border: 1px solid rgba(0, 0, 0, 0.466);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.buttons button:hover {
+  background-color: #1a1a1a;
+  color: #f5f1e9;
+  transform: translateY(-2px);
+}
