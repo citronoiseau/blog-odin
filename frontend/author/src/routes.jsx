@@ -2,8 +2,8 @@ import App from "./App";
 import Homepage from "./pages/Homepage/Homepage";
 import Login from "./pages/Signing/Login";
 import Signup from "./pages/Signing/Signup";
-import Upgrade from "./pages/Upgrade/Upgrade";
-import NewPost from "./pages/NewPost/NewPost";
+import Upgrade from "./pages/Signing/Upgrade";
+import PostForm from "./pages/PostForm/PostForm";
 import PublicRoute from "./utils/PublicRoute";
 import ProtectedRoute from "./utils/ProtectedRoute";
 
@@ -15,7 +15,7 @@ const routes = [
       {
         index: true,
         element: (
-          <ProtectedRoute requiredRole="Author">
+          <ProtectedRoute requiredRole="AUTHOR">
             <Homepage />
           </ProtectedRoute>
         ),
@@ -44,7 +44,7 @@ const routes = [
         path: "new-post",
         element: (
           <ProtectedRoute requiredRole="AUTHOR">
-            <NewPost />
+            <PostForm />
           </ProtectedRoute>
         ),
       },

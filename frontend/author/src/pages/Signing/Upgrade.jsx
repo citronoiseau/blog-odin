@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { useUpgradeUser } from "../../hooks/useAPI";
 import styles from "./Signing.module.css";
 
-function Login() {
+function Upgrade() {
   const { upgradeUser, error } = useUpgradeUser();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [formData, setFormData] = useState({
@@ -38,19 +38,21 @@ function Login() {
           ))}
         </div>
       )}
-      <h2> To access this website, you must be an author </h2>
-      <p> To become an author, enter a secret password </p>
-      <p>
-        To get the secret password, translate this phrase:
-        <em>j'aime écrire</em> (no spaces, no capital letters).
-      </p>
+      <div className={styles.upgradeInfo}>
+        <h2> To access this website, you must be an author </h2>
+        <p> Enter a secret password to become an author </p>
+        <p>
+          To get the secret password translate this phrase:
+          <em> j'aime écrire </em> (no spaces, no capital letters).
+        </p>
+      </div>
       <form onSubmit={handleSubmit} className={styles.upgradeForm}>
         <div className={styles.inputForm}>
           <label htmlFor="password">Secret Password: </label>
           <div className={styles.inputIconContainer}>
             <input
               type={passwordVisible ? "text" : "password"}
-              name="password"
+              name="secretPassword"
               id="password"
               value={formData.secretPassword}
               onChange={handleInputChange}
@@ -70,7 +72,7 @@ function Login() {
       </form>
       <div className={styles.linksContainer}>
         <p>
-          Not registered?
+          Not registered?{" "}
           <NavLink to="/sign-up" className={styles.navLink}>
             Sign-up now
           </NavLink>
@@ -83,4 +85,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Upgrade;

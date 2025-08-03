@@ -40,6 +40,7 @@ function Login() {
         </div>
       )}
       <form onSubmit={handleSubmit} className={styles.loginForm}>
+        <h2> Login</h2>
         <div className={styles.inputForm}>
           <label htmlFor="email">Email: </label>
           <input

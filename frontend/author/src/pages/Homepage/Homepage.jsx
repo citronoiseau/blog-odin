@@ -1,9 +1,8 @@
-import { usePosts } from "../../hooks/useAPI";
 import { useAuth } from "../../utils/AuthContext";
 import styles from "./Homepage.module.css";
 
 function Homepage() {
-  const { posts, loading, error } = usePosts();
+  //  const { posts, loading, error } = usePosts();
   const { user } = useAuth();
 
   if (loading)

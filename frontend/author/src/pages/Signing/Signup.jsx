@@ -59,6 +59,7 @@ function Signup() {
         </div>
       )}
       <form onSubmit={handleSubmit} className={styles.registerForm}>
+        <h2> Sign-up</h2>
         <div className={styles.inputForm}>
           <label htmlFor="first_name">First name: </label>
           <input
