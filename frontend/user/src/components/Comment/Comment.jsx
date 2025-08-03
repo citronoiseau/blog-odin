@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { useUpdateComment, useDeleteComment } from "../../hooks/useAPI";
+import { useUpdateComment } from "../../hooks/comments/useUpdateComment";
+import { useDeleteComment } from "../../hooks/comments/useDeleteComment";
 import styles from "./Comment.module.css";
 
 const Comment = ({ comment, currentUserId, onCommentUpdate, postId }) => {

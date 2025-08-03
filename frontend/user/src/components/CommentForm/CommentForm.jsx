@@ -1,4 +1,4 @@
-import { useCreateComment } from "../../hooks/useAPI";
+import { useCreateComment } from "../../hooks/comments/useCreateComment";
 import { useState } from "react";
 import styles from "./CommentForm.module.css";
 

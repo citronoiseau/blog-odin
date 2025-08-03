@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { useSignUser } from "../../hooks/useAPI";
+import { useSignUser } from "../../hooks/user/useSignUser";
 import styles from "./Signing.module.css";
 
 function Signup() {
@@ -59,6 +59,7 @@ function Signup() {
         </div>
       )}
       <form onSubmit={handleSubmit} className={styles.registerForm}>
+        <h2> Sign-up</h2>
         <div className={styles.inputForm}>
           <label htmlFor="first_name">First name: </label>
           <input
