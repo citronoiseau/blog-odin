@@ -1,0 +1,86 @@
+import { useState } from "react";
+import { NavLink } from "react-router-dom";
+import { useUpgradeUser } from "../../hooks/useAPI";
+import styles from "./Signing.module.css";
+
+function Login() {
+  const { upgradeUser, error } = useUpgradeUser();
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [formData, setFormData] = useState({
+    secretPassword: "",
+  });
+
+  const togglePassword = () => {
+    setPasswordVisible((prev) => !prev);
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      console.log("Form submitted:", formData);
+      await upgradeUser(formData);
+    } catch (err) {
+      console.error("Upgrade failed:", err);
+    }
+  };
+
+  return (
+    <div className={styles.formContainer}>
+      {error && (
+        <div style={{ color: "red" }}>
+          {error.map((err, i) => (
+            <p key={i}>{err.msg}</p>
+          ))}
+        </div>
+      )}
+      <h2> To access this website, you must be an author </h2>
+      <p> To become an author, enter a secret password </p>
+      <p>
+        To get the secret password, translate this phrase:
+        <em>j'aime écrire</em> (no spaces, no capital letters).
+      </p>
+      <form onSubmit={handleSubmit} className={styles.upgradeForm}>
+        <div className={styles.inputForm}>
+          <label htmlFor="password">Secret Password: </label>
+          <div className={styles.inputIconContainer}>
+            <input
+              type={passwordVisible ? "text" : "password"}
+              name="password"
+              id="password"
+              value={formData.secretPassword}
+              onChange={handleInputChange}
+              required
+              minLength="3"
+            />
+            <span
+              className={styles.togglePassword}
+              onClick={() => togglePassword("password")}
+            >
+              {passwordVisible ? "🙈" : "🙉"}
+            </span>
+          </div>
+        </div>
+
+        <button type="submit"> Upgrade </button>
+      </form>
+      <div className={styles.linksContainer}>
+        <p>
+          Not registered?
+          <NavLink to="/sign-up" className={styles.navLink}>
+            Sign-up now
+          </NavLink>
+        </p>
+        <NavLink to="/" className={styles.navLink}>
+          Homepage
+        </NavLink>
+      </div>
+    </div>
+  );
+}
+
+export default Login;
