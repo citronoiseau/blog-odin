@@ -1,5 +1,5 @@
 import PostCard from "../../components/PostCard/PostCard";
-import { usePosts } from "../../hooks/useAPI";
+import { usePosts } from "../../hooks/posts/usePosts";
 import { useAuth } from "../../utils/AuthContext";
 import styles from "./Homepage.module.css";
 

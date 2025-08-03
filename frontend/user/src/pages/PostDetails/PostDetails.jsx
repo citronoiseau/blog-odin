@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { usePost } from "../../hooks/useAPI";
+import { usePost } from "../../hooks/posts/usePost";
 import CommentForm from "../../components/CommentForm/CommentForm";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../utils/AuthContext";
