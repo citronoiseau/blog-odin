@@ -31,7 +31,7 @@ class PostService {
 
   async getAuthorPosts(authorId) {
     return await prisma.post.findMany({
-      where: { authorId: authorId },
+      where: { authorId: Number(authorId) },
       orderBy: {
         createdAt: "desc",
       },
