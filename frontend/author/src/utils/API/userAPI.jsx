@@ -1,6 +1,6 @@
 const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:3000";
 
-class blogAPI {
+class userAPI {
   async signUp(userData) {
     const response = await fetch(`${API_BASE}/sign-up`, {
       method: "POST",
@@ -40,6 +40,30 @@ class blogAPI {
 
     return data;
   }
+
+  async upgrade(secretPassword) {
+    const token = localStorage.getItem("jwt");
+    const response = await fetch(`${API_BASE}/upgrade`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(secretPassword),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw {
+        status: response.status,
+        errors: data.errors || [{ msg: data.message || "Unknown error" }],
+        message: data.message || "Unknown error",
+      };
+    }
+
+    return data;
+  }
 }
 
-export default new blogAPI();
+export default new userAPI();

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { useSignUser } from "../../hooks/useAPI";
+import { useSignUser } from "../../hooks/user/useSignUser";
 import styles from "./Signing.module.css";
 
 function Signup() {

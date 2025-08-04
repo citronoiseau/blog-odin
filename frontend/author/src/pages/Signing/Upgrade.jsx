@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { useUpgradeUser } from "../../hooks/useAPI";
+import { useUpgradeUser } from "../../hooks/user/useUpgradeUser";
 import styles from "./Signing.module.css";
 
 function Upgrade() {
