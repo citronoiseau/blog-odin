@@ -20,6 +20,13 @@ class PostsController {
     res.status(201).json(post);
   });
 
+  getAuthorPosts = asyncHandler(async (req, res) => {
+    const userId = req.user.id;
+    const posts = await PostService.getAuthorPosts(userId);
+
+    res.json(posts);
+  });
+
   createPost = [
     ...validatePost,
     asyncHandler(async (req, res) => {

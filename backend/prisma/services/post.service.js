@@ -29,6 +29,37 @@ class PostService {
     });
   }
 
+  async getAuthorPosts(authorId) {
+    return await prisma.post.findMany({
+      where: { authorId: authorId },
+      orderBy: {
+        createdAt: "desc",
+      },
+      include: {
+        author: {
+          select: {
+            firstName: true,
+            lastName: true,
+          },
+        },
+        comments: {
+          orderBy: {
+            createdAt: "desc",
+          },
+          include: {
+            author: {
+              select: {
+                id: true,
+                firstName: true,
+                lastName: true,
+              },
+            },
+          },
+        },
+      },
+    });
+  }
+
   async getPostById(id) {
     return await prisma.post.findUnique({
       where: { id: Number(id) },
