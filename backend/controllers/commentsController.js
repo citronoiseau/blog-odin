@@ -76,17 +76,20 @@ class CommentsController {
   deleteComment = asyncHandler(async (req, res) => {
     const { id } = req.params;
     const userId = req.user.id;
-    const postId = req.params.postId;
-    const post = await PostService.getPostById(postId);
 
-    if (!post) {
-      return res.status(404).json("Post not found");
+    const comment = await CommentService.getCommentWithPost(id);
+    if (!comment) {
+      return res.status(404).json({ message: "Comment not found" });
     }
 
-    const comment = await CommentService.getCommentById(id);
-    if (!comment) return res.status(404).send("Comment not found");
-    if (comment.authorId !== userId)
-      return res.status(403).send("Forbidden: You do not own this comment");
+    const isCommentAuthor = comment.authorId === userId;
+    const isPostAuthor = comment.post.authorId === userId;
+
+    if (!isCommentAuthor && !isPostAuthor) {
+      return res
+        .status(403)
+        .json({ message: "Forbidden: You cannot delete this comment" });
+    }
 
     await CommentService.deleteComment(id);
     res.status(200).json({ message: "Comment deleted successfully" });
