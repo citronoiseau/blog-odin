@@ -37,17 +37,8 @@ authRouter.post("/login", (req, res, next) => {
 
 authRouter.post("/sign-up", UsersController.signUp);
 
-authRouter.get(
-  "/author",
-  passport.authenticate("jwt", { session: false }),
-  isAuthor,
-  (req, res) => {
-    res.status(201).json("Welcome, Author!");
-  }
-);
-
 authRouter.post(
-  "/upgrade-to-author",
+  "/upgrade",
   passport.authenticate("jwt", { session: false }),
   UsersController.upgradeToAuthor
 );
