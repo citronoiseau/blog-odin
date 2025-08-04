@@ -7,15 +7,6 @@ function Homepage() {
   const { posts, loading, error } = usePosts();
   const { user } = useAuth();
 
-  if (loading)
-    return <div className={styles.pageContainer}>Loading posts...</div>;
-  if (error)
-    return (
-      <div className={styles.pageContainer} style={{ color: "red" }}>
-        Error: {error}
-      </div>
-    );
-
   return (
     <div className={styles.pageContainer}>
       <div className={styles.userContainer}>
@@ -36,12 +27,21 @@ function Homepage() {
           </div>
         )}
       </div>
+      {error && (
+        <div className={styles.pageContainer} style={{ color: "red" }}>
+          Error: {error}
+        </div>
+      )}
       <div className={styles.postsContainer}>
-        {posts.length === 0 ? (
-          <div className={styles.noPosts}>No posts found</div>
-        ) : (
-          posts.map((post) => <PostCard post={post} key={post.id} />)
+        {loading && (
+          <div className={styles.pageContainer}>Loading posts...</div>
         )}
+        {!loading && posts.length === 0 && (
+          <div className={styles.noPosts}>No posts found</div>
+        )}
+        {!loading &&
+          posts.length > 0 &&
+          posts.map((post) => <PostCard post={post} key={post.id} />)}
       </div>
     </div>
   );
