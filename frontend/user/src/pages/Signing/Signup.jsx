@@ -4,7 +4,7 @@ import { useSignUser } from "../../hooks/user/useSignUser";
 import styles from "./Signing.module.css";
 
 function Signup() {
-  const { signUser, error } = useSignUser();
+  const { signUser, error, loading } = useSignUser();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
@@ -142,7 +142,13 @@ function Signup() {
           <p style={{ color: "red" }}>Passwords do not match.</p>
         )}
 
-        <button type="submit">Register</button>
+        <button
+          type="submit"
+          disabled={loading}
+          className={styles.submitButton}
+        >
+          {loading ? "Signing up..." : "Sign up"}
+        </button>
       </form>
       <div className={styles.linksContainer}>
         <p>
