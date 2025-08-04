@@ -7,9 +7,16 @@ class CommentService {
     });
   }
 
-  async getCommentById(id) {
+  async getCommentWithPost(id) {
     return await prisma.comment.findUnique({
-      where: { id: Number(id) },
+      where: { id: parseInt(id) },
+      include: {
+        post: {
+          select: {
+            authorId: true,
+          },
+        },
+      },
     });
   }
 
