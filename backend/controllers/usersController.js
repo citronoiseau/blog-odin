@@ -39,6 +39,11 @@ class UsersController {
       return res.status(403).json({ message: "Invalid secret password" });
     }
 
+    const user = await UserService.getUserById(req.user.id);
+    if (user.role === "AUTHOR") {
+      return res.status(201).json({ message: "You are already author!" });
+    }
+
     await UserService.upgradeUser(req.user.id);
 
     res.status(201).json({ message: "You have been upgraded to author!" });
