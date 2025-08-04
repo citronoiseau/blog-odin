@@ -5,11 +5,13 @@ import { useToast } from "../../utils/ToastContext";
 
 export function useUpgradeUser() {
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { showToast } = useToast();
 
   const upgradeUser = async (secretPassword) => {
     setError(null);
+    setLoading(true);
     try {
       const result = await userAPI.upgrade(secretPassword);
       showToast(result.message, false, 3000);
@@ -21,8 +23,10 @@ export function useUpgradeUser() {
         setError([{ msg: err.message || "Upgrade failed" }]);
       }
       throw err;
+    } finally {
+      setLoading(false);
     }
   };
 
-  return { upgradeUser, error };
+  return { upgradeUser, error, loading };
 }

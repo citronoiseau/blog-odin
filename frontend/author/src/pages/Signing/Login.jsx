@@ -4,7 +4,7 @@ import { useLoginUser } from "../../hooks/user/useLoginUser";
 import styles from "./Signing.module.css";
 
 function Login() {
-  const { loginUser, error } = useLoginUser();
+  const { loginUser, error, loading } = useLoginUser();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
@@ -76,7 +76,13 @@ function Login() {
           </div>
         </div>
 
-        <button type="submit"> Login </button>
+        <button
+          type="submit"
+          disabled={loading}
+          className={styles.submitButton}
+        >
+          {loading ? "Logging in..." : "Login"}
+        </button>
       </form>
       <div className={styles.linksContainer}>
         <p>

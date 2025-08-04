@@ -5,11 +5,13 @@ import { useToast } from "../../utils/ToastContext";
 
 export function useSignUser() {
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { showToast } = useToast();
 
   const signUser = async (userdata) => {
     setError(null);
+    setLoading(true);
     try {
       const result = await userAPI.signUp(userdata);
       showToast(result.message, false, 3000);
@@ -21,8 +23,10 @@ export function useSignUser() {
         setError([{ msg: err.message || "Sign up failed" }]);
       }
       throw err;
+    } finally {
+      setLoading(false);
     }
   };
 
-  return { signUser, error };
+  return { signUser, error, loading };
 }

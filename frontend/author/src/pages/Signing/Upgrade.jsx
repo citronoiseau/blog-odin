@@ -4,7 +4,7 @@ import { useUpgradeUser } from "../../hooks/user/useUpgradeUser";
 import styles from "./Signing.module.css";
 
 function Upgrade() {
-  const { upgradeUser, error } = useUpgradeUser();
+  const { upgradeUser, error, loading } = useUpgradeUser();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [formData, setFormData] = useState({
     secretPassword: "",
@@ -68,7 +68,13 @@ function Upgrade() {
           </div>
         </div>
 
-        <button type="submit"> Upgrade </button>
+        <button
+          type="submit"
+          disabled={loading}
+          className={styles.submitButton}
+        >
+          {loading ? "Upgrading..." : "Upgrade"}
+        </button>
       </form>
       <div className={styles.linksContainer}>
         <p>

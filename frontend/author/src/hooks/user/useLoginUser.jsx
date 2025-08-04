@@ -6,12 +6,14 @@ import { useToast } from "../../utils/ToastContext";
 
 export function useLoginUser() {
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { showToast } = useToast();
   const { login } = useAuth();
 
   const loginUser = async (userdata) => {
     setError(null);
+    setLoading(true);
     try {
       const result = await userAPI.login(userdata);
       login(result.token, result.user);
@@ -24,8 +26,10 @@ export function useLoginUser() {
         setError([{ msg: err.message || "Login failed" }]);
       }
       throw err;
+    } finally {
+      setLoading(false);
     }
   };
 
-  return { loginUser, error };
+  return { loginUser, error, loading };
 }
