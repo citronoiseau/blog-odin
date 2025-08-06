@@ -9,7 +9,7 @@ const NavBar = () => {
     <nav className={styles.navbar}>
       <div className={styles.primary}>
         <NavLink to="/" end className={styles.navLink}>
-          Typpo
+          Typpo for Authors
         </NavLink>
       </div>
 
