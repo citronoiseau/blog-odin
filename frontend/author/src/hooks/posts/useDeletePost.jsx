@@ -5,13 +5,13 @@ import { useToast } from "../../utils/ToastContext";
 import { useAuth } from "../../utils/AuthContext";
 import { isTokenExpired } from "../../utils/jwt";
 
-export function useCreatePost() {
+export function useDeletePost() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const { showToast } = useToast();
   const { token, logout } = useAuth();
 
-  const createPost = async (postdata) => {
+  const deletePost = async (postId) => {
     if (!token || isTokenExpired(token)) {
       logout();
       navigate("/login");
@@ -19,18 +19,17 @@ export function useCreatePost() {
     }
     setError(null);
     try {
-      const result = await postAPI.createPost(postdata);
+      const result = await postAPI.deletePost(postId);
       showToast(result.message, false, 3000);
-      navigate("/");
     } catch (err) {
       if (err.errors) {
         setError(err.errors);
       } else {
-        setError([{ msg: err.message || "Post creation failed" }]);
+        setError([{ msg: err.message || "Delete failed" }]);
       }
       throw err;
     }
   };
 
-  return { createPost, error };
+  return { deletePost, error };
 }

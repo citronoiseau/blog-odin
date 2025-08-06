@@ -9,7 +9,7 @@ export function useUpdatePost() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const { showToast } = useToast();
-  const { token } = useAuth();
+  const { token, logout } = useAuth();
 
   const updatePost = async (postId, postdata) => {
     if (!token || isTokenExpired(token)) {

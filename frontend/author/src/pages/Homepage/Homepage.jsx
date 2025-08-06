@@ -5,7 +5,7 @@ import { useAuth } from "../../utils/AuthContext";
 import styles from "./Homepage.module.css";
 
 function Homepage() {
-  const { posts, loading, error } = useAuthorPosts();
+  const { posts, loading, error, refetch } = useAuthorPosts();
   const { user } = useAuth();
 
   return (
@@ -34,7 +34,9 @@ function Homepage() {
         )}
         {!loading &&
           posts.length > 0 &&
-          posts.map((post) => <PostCard post={post} key={post.id} />)}
+          posts.map((post) => (
+            <PostCard post={post} key={post.id} onDelete={refetch} />
+          ))}
       </div>
       <div className={styles.controls}>
         <NavLink to="/new-post" className={styles.navLink}>

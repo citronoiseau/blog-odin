@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import postAPI from "../../utils/API/postAPI";
 import { useAuth } from "../../utils/AuthContext";
+import postAPI from "../../utils/API/postAPI";
 
 export function useAuthorPosts() {
   const [posts, setPosts] = useState([]);
@@ -8,13 +8,18 @@ export function useAuthorPosts() {
   const [error, setError] = useState(null);
   const { token } = useAuth();
 
-  useEffect(() => {
+  const fetchPosts = () => {
+    setLoading(true);
     postAPI
       .fetchAuthorPosts(token)
       .then(setPosts)
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
-  }, []);
+  };
 
-  return { posts, loading, error };
+  useEffect(() => {
+    fetchPosts();
+  }, [token]);
+
+  return { posts, loading, error, refetch: fetchPosts };
 }
