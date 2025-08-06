@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { usePost } from "../../hooks/posts/usePost";
 import { useCreatePost } from "../../hooks/posts/useCreatePost";
 import { useUpdatePost } from "../../hooks/posts/useUpdatePost";
+import { Editor } from "@tinymce/tinymce-react";
 import styles from "./PostForm.module.css";
 
 const PostForm = () => {
@@ -35,6 +36,10 @@ const PostForm = () => {
     const newValue = name === "isPublished" ? value === "true" : value;
     console.log("Changing", name, "to", newValue, typeof newValue);
     setFormData({ ...formData, [name]: newValue });
+  };
+
+  const handleEditorChange = (content) => {
+    setFormData({ ...formData, content });
   };
 
   const handleSubmit = async (e) => {
@@ -89,15 +94,20 @@ const PostForm = () => {
             required
           />
         </div>
+
         <div className={styles.inputForm}>
-          <textarea
-            name="content"
-            id="content"
+          <Editor
+            apiKey={import.meta.env.VITE_TINYMCE_KEY}
             value={formData.content}
-            minLength="2"
-            onChange={handleInputChange}
-            placeholder="Write your post..."
-            required
+            init={{
+              height: 400,
+              menubar: false,
+              plugins: "link image code lists",
+              toolbar:
+                "undo redo | formatselect | bold italic | alignleft aligncenter alignright | bullist numlist | link image | code",
+            }}
+            onEditorChange={handleEditorChange}
+            initialValue="Start your beautiful post here"
           />
         </div>
         <div className={styles.inputForm}>

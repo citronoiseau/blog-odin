@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useDeletePost } from "../../hooks/posts/useDeletePost";
 import styles from "./PostCard.module.css";
+import DOMPurify from "dompurify";
 
 function PostCard({ post, onDelete }) {
   const { deletePost, error } = useDeletePost();
@@ -38,7 +39,10 @@ function PostCard({ post, onDelete }) {
         </div>
       )}
       <h2>{post.title}</h2>
-      <p>{preview}</p>
+      <div
+        className={styles.contentInfo}
+        dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content) }}
+      ></div>
       <small>
         Author: {post.author.firstName} {post.author.lastName}
       </small>

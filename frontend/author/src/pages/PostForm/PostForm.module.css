@@ -44,7 +44,9 @@
   font-family: inherit;
   transition: border-color 0.3s ease, box-shadow 0.2s ease;
 }
-
+.inputForm textarea {
+  line-height: 1.5;
+}
 .inputForm input[type="text"]:focus,
 .inputForm textarea:focus {
   border-color: #1a1a1a;
