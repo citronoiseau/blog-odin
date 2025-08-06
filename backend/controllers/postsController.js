@@ -83,7 +83,7 @@ class PostsController {
     if (!post) {
       return res.status(404).send("Post not found");
     }
-    if (post.userId !== userId) {
+    if (post.authorId !== userId) {
       return res.status(403).send("Forbidden: You do not own this post");
     }
 
