@@ -56,7 +56,7 @@ class PostsController {
 
   updatePost = asyncHandler(async (req, res) => {
     const { id } = req.params;
-    const { title, content } = req.body;
+    const { title, content, isPublished } = req.body;
     const userId = req.user.id;
     const post = await PostService.getPostById(id);
 
@@ -67,7 +67,7 @@ class PostsController {
       return res.status(403).json("Forbidden: You do not own this post");
     }
     try {
-      await PostService.updatePost({ id, title, content });
+      await PostService.updatePost({ id, title, content, isPublished });
       res.status(201).json({ message: "Post updated successfully", post });
     } catch (err) {
       console.error("Post update error:", err);

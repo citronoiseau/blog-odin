@@ -99,13 +99,16 @@ class PostService {
     });
   }
 
-  async updatePost({ id, title, content }) {
+  async updatePost({ id, title, content, isPublished }) {
     return await prisma.post.update({
       where: { id: Number(id) },
-      data: { title: title, content: content },
+      data: {
+        title: title,
+        content: content,
+        isPublished: isPublished,
+      },
     });
   }
-
   async deletePost(id) {
     return await prisma.post.delete({
       where: { id: Number(id) },
