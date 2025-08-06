@@ -6,21 +6,37 @@
 }
 
 .registerForm,
-.loginForm {
+.loginForm,
+.upgradeForm {
   width: 100%;
   max-width: 400px;
   background-color: #fffef9;
   background-image: url("/paper.png");
   background-size: cover;
   border-radius: 6px;
-  padding: 10px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
+.registerForm {
+  max-width: 600px;
+}
+
+.signupInfo {
+  text-align: center;
+}
+
+.inputs {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
 .registerForm h2,
-.loginForm h2 {
+.loginForm h2,
+.upgradeForm h2 {
   padding: 5px 0;
   align-self: center;
 }
@@ -29,6 +45,7 @@
   display: flex;
   flex-direction: column;
   gap: 5px;
+  margin-bottom: 10px;
 }
 
 .inputForm label {
@@ -113,6 +130,14 @@
 .navLink:hover {
   color: #1a1a1a;
   border-bottom-color: #1a1a1a;
+}
+
+.upgradeInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 0 20px 0;
 }
 
 .submitButton:disabled {
