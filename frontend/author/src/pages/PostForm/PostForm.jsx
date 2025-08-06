@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useCreatePost } from "../../hooks/posts/useCreatePost";
 import styles from "./PostForm.module.css";
 
 const PostForm = () => {
   const { createPost, error } = useCreatePost();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     title: "",
     content: "",
@@ -26,12 +28,17 @@ const PostForm = () => {
     }
   };
 
-  const resetForm = (e) => {
+  const resetForm = () => {
     setFormData({ title: "", content: "", isPublished: false });
   };
 
+  const handleCancel = () => {
+    resetForm();
+    navigate("/");
+  };
+
   return (
-    <div>
+    <div className={styles.postForm}>
       {error && (
         <div className={styles.errorBox}>
           {error.map((err, i) => (
@@ -40,6 +47,7 @@ const PostForm = () => {
         </div>
       )}
       <form onSubmit={handleSubmit} className={styles.createForm}>
+        <h2> Post Creation </h2>
         <div className={styles.inputForm}>
           <label htmlFor="title">Title: </label>
           <input
@@ -57,7 +65,6 @@ const PostForm = () => {
             id="content"
             value={formData.content}
             minLength="2"
-            maxLength="300"
             onChange={handleInputChange}
             placeholder="Start your beautiful blog here"
             required
@@ -66,31 +73,34 @@ const PostForm = () => {
         <div className={styles.inputForm}>
           <fieldset>
             <legend>Publish your post immediately?</legend>
-            <div>
-              <input
-                type="radio"
-                id="yesChoice"
-                name="isPublished"
-                value="true"
-                checked={formData.isPublished === true}
-                onChange={handleInputChange}
-              />
-              <label htmlFor="yesChoice">Yes</label>
-
-              <input
-                type="radio"
-                id="noChoice"
-                name="isPublished"
-                value="false"
-                checked={formData.isPublished === false}
-                onChange={handleInputChange}
-              />
-              <label htmlFor="noChoice">No</label>
+            <div className={styles.fieldChoices}>
+              <div className={styles.fieldChoice}>
+                <input
+                  type="radio"
+                  id="yesChoice"
+                  name="isPublished"
+                  value="true"
+                  checked={formData.isPublished === true}
+                  onChange={handleInputChange}
+                />
+                <label htmlFor="yesChoice">Yes</label>
+              </div>
+              <div className={styles.fieldChoice}>
+                <input
+                  type="radio"
+                  id="noChoice"
+                  name="isPublished"
+                  value="false"
+                  checked={formData.isPublished === false}
+                  onChange={handleInputChange}
+                />
+                <label htmlFor="noChoice">No</label>
+              </div>
             </div>
           </fieldset>
         </div>
         <div className={styles.buttons}>
-          <button type="button" onClick={resetForm}>
+          <button type="button" onClick={handleCancel}>
             Cancel
           </button>
           <button type="submit">Create</button>

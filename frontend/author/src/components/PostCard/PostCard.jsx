@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "./PostCard.module.css";
 
 function PostCard({ post }) {
+  console.log(post);
   const navigate = useNavigate();
   const handleClick = () => navigate(`posts/${post.id}`);
 
@@ -17,6 +18,15 @@ function PostCard({ post }) {
       <small>
         Author: {post.author.firstName} {post.author.lastName}
       </small>
+      <div className={styles.postInfo}>
+        <div className={styles.status}>
+          {post.isPublished ? "Published" : "Not published"}
+        </div>
+        <div className={styles.postControls}>
+          <button className={styles.iconBtn}>✎</button>
+          <button className={styles.iconBtn}>🗑</button>
+        </div>
+      </div>
     </div>
   );
 }
