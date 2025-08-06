@@ -1,5 +1,6 @@
 import PostCard from "../../components/PostCard/PostCard";
 import { useAuthorPosts } from "../../hooks/posts/useAuthorPosts";
+import { NavLink } from "react-router-dom";
 import { useAuth } from "../../utils/AuthContext";
 import styles from "./Homepage.module.css";
 
@@ -34,6 +35,11 @@ function Homepage() {
         {!loading &&
           posts.length > 0 &&
           posts.map((post) => <PostCard post={post} key={post.id} />)}
+      </div>
+      <div className={styles.controls}>
+        <NavLink to="/new-post" className={styles.navLink}>
+          Create new post
+        </NavLink>
       </div>
     </div>
   );

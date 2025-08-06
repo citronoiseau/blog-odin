@@ -43,7 +43,7 @@ class userAPI {
 
   async upgrade(secretPassword) {
     const token = localStorage.getItem("jwt");
-    const response = await fetch(`${API_BASE}/upgrade-to-author`, {
+    const response = await fetch(`${API_BASE}/upgrade`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
