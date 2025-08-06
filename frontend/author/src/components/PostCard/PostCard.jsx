@@ -6,6 +6,15 @@ function PostCard({ post }) {
   const navigate = useNavigate();
   const handleClick = () => navigate(`posts/${post.id}`);
 
+  const handleEdit = (e) => {
+    e.stopPropagation();
+    navigate(`/posts/${post.id}/edit`);
+  };
+  const handleDelete = (e) => {
+    e.stopPropagation();
+    console.log("Delete post:", post.id);
+  };
+
   const preview =
     post.content.length > 150
       ? post.content.slice(0, 150) + "..."
@@ -23,8 +32,12 @@ function PostCard({ post }) {
           {post.isPublished ? "Published" : "Not published"}
         </div>
         <div className={styles.postControls}>
-          <button className={styles.iconBtn}>✎</button>
-          <button className={styles.iconBtn}>🗑</button>
+          <button className={styles.iconBtn} onClick={handleEdit}>
+            ✎
+          </button>
+          <button className={styles.iconBtn} onClick={handleDelete}>
+            🗑
+          </button>
         </div>
       </div>
     </div>

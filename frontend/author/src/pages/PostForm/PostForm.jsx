@@ -1,27 +1,51 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { usePost } from "../../hooks/posts/usePost";
 import { useCreatePost } from "../../hooks/posts/useCreatePost";
+import { useUpdatePost } from "../../hooks/posts/useUpdatePost";
 import styles from "./PostForm.module.css";
 
 const PostForm = () => {
-  const { createPost, error } = useCreatePost();
+  const { postId } = useParams(); // if there's an id in the URL, we're editing
   const navigate = useNavigate();
+  const isEditing = Boolean(postId);
+
+  const { createPost, error: createError } = useCreatePost();
+  const { post, loading, error: fetchError } = usePost(postId);
+  const { updatePost, error: updateError } = useUpdatePost();
+
   const [formData, setFormData] = useState({
     title: "",
     content: "",
     isPublished: false,
   });
 
+  useEffect(() => {
+    if (post) {
+      setFormData({
+        title: post.title,
+        content: post.content,
+        isPublished: post.isPublished,
+      });
+    }
+  }, [post]);
+
   const handleInputChange = (e) => {
-    const { name, value, type } = e.target;
-    const newValue = type === "radio" ? value === "true" : value;
+    const { name, value } = e.target;
+    const newValue = name === "isPublished" ? value === "true" : value;
+    console.log("Changing", name, "to", newValue, typeof newValue);
     setFormData({ ...formData, [name]: newValue });
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       console.log("Post submitted:", formData);
-      await createPost(formData);
+      if (isEditing) {
+        await updatePost(postId, formData);
+      } else {
+        await createPost(formData);
+      }
       resetForm();
     } catch (err) {
       console.error("Failed to create a post:", err);
@@ -36,18 +60,24 @@ const PostForm = () => {
     resetForm();
     navigate("/");
   };
+  if (loading && isEditing) return <div>Loading post...</div>;
 
   return (
     <div className={styles.postForm}>
-      {error && (
+      {(createError || updateError || fetchError) && (
         <div className={styles.errorBox}>
-          {error.map((err, i) => (
-            <p key={i}>{err.msg}</p>
-          ))}
+          {Array.isArray(createError || updateError) ? (
+            (createError || updateError).map((err, i) => (
+              <p key={i}>{err.msg}</p>
+            ))
+          ) : (
+            <p>{fetchError}</p>
+          )}
         </div>
       )}
+
       <form onSubmit={handleSubmit} className={styles.createForm}>
-        <h2> Post Creation </h2>
+        <h2>{isEditing ? "Edit Post" : "Create Post"}</h2>
         <div className={styles.inputForm}>
           <label htmlFor="title">Title: </label>
           <input
@@ -66,13 +96,13 @@ const PostForm = () => {
             value={formData.content}
             minLength="2"
             onChange={handleInputChange}
-            placeholder="Start your beautiful blog here"
+            placeholder="Write your post..."
             required
           />
         </div>
         <div className={styles.inputForm}>
           <fieldset>
-            <legend>Publish your post immediately?</legend>
+            <legend>Publish immediately?</legend>
             <div className={styles.fieldChoices}>
               <div className={styles.fieldChoice}>
                 <input
@@ -103,7 +133,7 @@ const PostForm = () => {
           <button type="button" onClick={handleCancel}>
             Cancel
           </button>
-          <button type="submit">Create</button>
+          <button type="submit">{isEditing ? "Update" : "Create"}</button>
         </div>
       </form>
     </div>

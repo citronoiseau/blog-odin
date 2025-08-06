@@ -6,6 +6,7 @@ import Upgrade from "./pages/Signing/Upgrade";
 import PostForm from "./pages/PostForm/PostForm";
 import PublicRoute from "./utils/PublicRoute";
 import ProtectedRoute from "./utils/ProtectedRoute";
+import PostDetails from "./pages/PostDetails/PostDetails";
 
 const routes = [
   {
@@ -42,6 +43,22 @@ const routes = [
       },
       {
         path: "new-post",
+        element: (
+          <ProtectedRoute requiredRole="AUTHOR">
+            <PostForm />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "posts/:postId",
+        element: (
+          <ProtectedRoute requiredRole="AUTHOR">
+            <PostDetails />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "posts/:postId/edit",
         element: (
           <ProtectedRoute requiredRole="AUTHOR">
             <PostForm />
