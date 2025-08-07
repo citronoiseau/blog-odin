@@ -30,14 +30,14 @@ const CommentForm = ({ postId, onCommentCreated }) => {
 
   return (
     <div>
-      {error && (
-        <div className={styles.errorBox}>
-          {error.map((err, i) => (
-            <p key={i}>{err.msg}</p>
-          ))}
-        </div>
-      )}
       <form onSubmit={handleSubmit} className={styles.createForm}>
+        {error && (
+          <div className={styles.errorBox}>
+            {error.map((err, i) => (
+              <p key={i}>{err.msg}</p>
+            ))}
+          </div>
+        )}
         <div className={styles.inputForm}>
           <textarea
             name="content"

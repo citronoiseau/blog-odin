@@ -7,6 +7,9 @@
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   position: relative;
   background: url("/paper.png") center/cover no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .postCard:nth-child(2n) {

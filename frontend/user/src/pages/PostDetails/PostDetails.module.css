@@ -34,6 +34,15 @@
   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.05);
   text-align: justify;
 }
+
+.contentInfo img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1rem auto;
+  border-radius: 4px;
+}
+
 .authorInfo {
   font-style: italic;
   color: #555;
@@ -58,7 +67,7 @@
   font-family: "Special Elite", monospace, Courier, monospace;
   color: #1a1a1a;
   text-decoration: none;
-  border: 1.5px solid #c9b99a;
+  border-bottom: 1.5px solid #c9b99a00;
   transition: border-color 0.3s ease, color 0.3s ease;
 }
 

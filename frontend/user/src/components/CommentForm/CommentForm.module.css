@@ -43,7 +43,7 @@
   border-radius: 4px;
   text-decoration: none;
   font-weight: bold;
-  border: 1.5px solid #c9b99a;
+  border: none;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
@@ -51,4 +51,13 @@
   background-color: #1a1a1a;
   color: #f5f1e9;
   transform: translateY(-2px);
+}
+
+.errorBox {
+  padding: 1rem;
+  border: 2px solid #d9534f;
+  background: #f9d6d5;
+  color: #a94442;
+  border-radius: 4px;
+  font-weight: bold;
 }

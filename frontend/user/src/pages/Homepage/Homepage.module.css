@@ -17,6 +17,20 @@
   width: 100%;
 }
 
+.userContainer a {
+  font-family: "Special Elite", monospace, Courier, monospace;
+  color: #5a1b00;
+  text-decoration: none;
+  border-bottom: 1.5px solid #c9b99a00;
+  transition: border-color 0.3s ease, color 0.3s ease;
+}
+
+.userContainer a:hover,
+.userContainer a.active {
+  color: #1a1a1a;
+  border-bottom-color: #5a1b00;
+}
+
 .userContainer h2 {
   font-size: 1.6rem;
   margin: 0;

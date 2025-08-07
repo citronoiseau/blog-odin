@@ -15,14 +15,36 @@ function Homepage() {
             <h2>
               Welcome, {user.firstName} {user.lastName}
             </h2>
-            <div>Do you want to become an author? Sign up here:</div>
+            {user.role !== "AUTHOR" ? (
+              <div>
+                Do you want to become an author?{" "}
+                <a
+                  href="https://typpo-blog-authors.netlify.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Sign up here
+                </a>
+              </div>
+            ) : (
+              <div>
+                You can edit your posts here:{" "}
+                <a
+                  href="https://typpo-blog-authors.netlify.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Author Dashboard
+                </a>
+              </div>
+            )}
           </div>
         ) : (
           <div>
             <h2>Welcome to Typpo!</h2>
             <h3>
               You can read the posts below, but to leave comments you have to
-              login.
+              log in.
             </h3>
           </div>
         )}
