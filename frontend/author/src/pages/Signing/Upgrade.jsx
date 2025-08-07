@@ -31,13 +31,6 @@ function Upgrade() {
 
   return (
     <div className={styles.formContainer}>
-      {error && (
-        <div style={{ color: "red" }}>
-          {error.map((err, i) => (
-            <p key={i}>{err.msg}</p>
-          ))}
-        </div>
-      )}
       <div className={styles.upgradeInfo}>
         <h2> To access this website, you must be an author </h2>
         <p> Enter a secret password to become an author </p>
@@ -46,6 +39,13 @@ function Upgrade() {
           <em> j'aime écrire </em> (no spaces, no capital letters).
         </p>
       </div>
+      {error && (
+        <div style={{ color: "red" }}>
+          {error.map((err, i) => (
+            <p key={i}>{err.msg}</p>
+          ))}
+        </div>
+      )}
       <form onSubmit={handleSubmit} className={styles.upgradeForm}>
         <div className={styles.inputForm}>
           <label htmlFor="password">Secret Password: </label>
