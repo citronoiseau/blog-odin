@@ -1,11 +1,12 @@
 import { useNavigate } from "react-router-dom";
-// import commentAPI from "../../utils/API/commentAPI";
+import { useState } from "react";
+import commentAPI from "../../utils/API/commentAPI";
 import { useToast } from "../../utils/ToastContext";
 import { useAuth } from "../../utils/AuthContext";
 import { isTokenExpired } from "../../utils/jwt";
 
 export function useDeleteComment() {
-  //const [deleteError, setError] = useState(null);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
   const { showToast } = useToast();
   const { token } = useAuth();
@@ -18,7 +19,7 @@ export function useDeleteComment() {
     }
     setError(null);
     try {
-      // const result = await commentAPI.deleteComment(commentId, postId);
+      const result = await commentAPI.deleteComment(commentId, postId);
       showToast(result.message, false, 3000);
       if (onCommentUpdated) {
         onCommentUpdated();
@@ -33,5 +34,5 @@ export function useDeleteComment() {
     }
   };
 
-  return { deleteComment, deleteError };
+  return { deleteComment, error };
 }
