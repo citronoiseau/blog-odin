@@ -76,17 +76,6 @@ function Upgrade() {
           {loading ? "Upgrading..." : "Upgrade"}
         </button>
       </form>
-      <div className={styles.linksContainer}>
-        <p>
-          Not registered?{" "}
-          <NavLink to="/sign-up" className={styles.navLink}>
-            Sign-up now
-          </NavLink>
-        </p>
-        <NavLink to="/" className={styles.navLink}>
-          Homepage
-        </NavLink>
-      </div>
     </div>
   );
 }
