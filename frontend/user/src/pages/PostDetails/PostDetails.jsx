@@ -5,6 +5,7 @@ import { NavLink } from "react-router-dom";
 import { useAuth } from "../../utils/AuthContext";
 import Comment from "../../components/Comment/Comment";
 import styles from "./PostDetails.module.css";
+import DOMPurify from "dompurify";
 
 function PostDetails() {
   const { user } = useAuth();
@@ -21,7 +22,10 @@ function PostDetails() {
       </NavLink>
       <div className={styles.postInfo}>
         <h1>{post.title}</h1>
-        <p className={styles.contentInfo}>{post.content}</p>
+        <div
+          className={styles.contentInfo}
+          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content) }}
+        ></div>
         <p className={styles.authorInfo}>
           Author: {post.author.firstName} {post.author.lastName}
         </p>
