@@ -69,20 +69,19 @@ const PostForm = () => {
 
   return (
     <div className={styles.postForm}>
-      {(createError || updateError || fetchError) && (
-        <div className={styles.errorBox}>
-          {Array.isArray(createError || updateError) ? (
-            (createError || updateError).map((err, i) => (
-              <p key={i}>{err.msg}</p>
-            ))
-          ) : (
-            <p>{fetchError}</p>
-          )}
-        </div>
-      )}
-
       <form onSubmit={handleSubmit} className={styles.createForm}>
         <h2>{isEditing ? "Edit Post" : "Create Post"}</h2>
+        {(createError || updateError || fetchError) && (
+          <div className={styles.errorBox}>
+            {Array.isArray(createError || updateError) ? (
+              (createError || updateError).map((err, i) => (
+                <p key={i}>{err.msg}</p>
+              ))
+            ) : (
+              <p>{fetchError}</p>
+            )}
+          </div>
+        )}
         <div className={styles.inputForm}>
           <label htmlFor="title">Title: </label>
           <input
@@ -102,12 +101,12 @@ const PostForm = () => {
             init={{
               height: 400,
               menubar: false,
+              placeholder: "Start your beautiful post here...",
               plugins: "link image code lists",
               toolbar:
                 "undo redo | formatselect | bold italic | alignleft aligncenter alignright | bullist numlist | link image | code",
             }}
             onEditorChange={handleEditorChange}
-            initialValue="Start your beautiful post here"
           />
         </div>
         <div className={styles.inputForm}>

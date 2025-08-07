@@ -41,7 +41,7 @@ function PostCard({ post, onDelete }) {
       <h2>{post.title}</h2>
       <div
         className={styles.contentInfo}
-        dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content) }}
+        dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(preview) }}
       ></div>
       <small>
         Author: {post.author.firstName} {post.author.lastName}
