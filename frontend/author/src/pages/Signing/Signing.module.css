@@ -1,0 +1,151 @@
+.formContainer {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.registerForm,
+.loginForm,
+.upgradeForm {
+  width: 100%;
+  max-width: 400px;
+  background-color: #fffef9;
+  background-image: url("/paper.png");
+  background-size: cover;
+  border-radius: 6px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.registerForm {
+  max-width: 600px;
+}
+
+.signupInfo {
+  text-align: center;
+}
+
+.inputs {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.registerForm h2,
+.loginForm h2,
+.upgradeForm h2 {
+  padding: 5px 0;
+  align-self: center;
+}
+
+.inputForm {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.inputForm label {
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.inputForm input {
+  padding: 10px 14px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  border: 1.5px solid #c9b99a;
+  border-radius: 4px;
+  background-color: #fffef9;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.inputForm input:focus {
+  outline: none;
+  border-color: #1a1a1a;
+  box-shadow: 0 0 0 2px rgba(201, 185, 154, 0.3);
+}
+
+.inputIconContainer {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+}
+
+.inputIconContainer input {
+  width: 100%;
+  padding-right: 40px;
+}
+
+.togglePassword {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 1.2rem;
+  user-select: none;
+  color: #555;
+}
+
+.submitButton {
+  font-family: "Special Elite", monospace, Courier, monospace;
+  margin-top: 20px;
+  background-color: #6b4241;
+  color: #f5f1e9;
+  border: 1.5px solid #c9b99a;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.submitButton:hover {
+  background-color: #1a1a1a;
+}
+
+.linksContainer {
+  margin-top: 15px;
+  font-family: "Special Elite", monospace, Courier, monospace;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.linksContainer p {
+  margin-bottom: 0.5rem;
+}
+
+.navLink {
+  color: #5c000b;
+  text-decoration: none;
+  transition: border-color 0.3s ease, color 0.3s ease;
+}
+
+.navLink:hover {
+  color: #1a1a1a;
+  border-bottom-color: #1a1a1a;
+}
+
+.upgradeInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 0 20px 0;
+}
+
+.submitButton:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.submitButton:disabled:hover {
+  background-color: #555;
+}
