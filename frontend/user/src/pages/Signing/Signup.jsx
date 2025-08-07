@@ -146,12 +146,12 @@ function Signup() {
                 </span>
               </div>
             </div>
-
             {passwordError && (
               <p style={{ color: "red" }}>Passwords do not match.</p>
             )}
           </div>
         </div>
+
         <button
           type="submit"
           disabled={loading}

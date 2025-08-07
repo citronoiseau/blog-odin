@@ -1,0 +1,110 @@
+.postForm {
+  display: flex;
+  justify-content: center;
+}
+
+.createForm {
+  margin: 40px 0 60px 0;
+  align-self: center;
+  width: 100%;
+  max-width: 900px;
+  padding: 2rem;
+  background-color: #fffef9;
+  background-image: url("/paper.png");
+  background-size: cover;
+  background-position: center;
+  border: 2px solid #c9b99a;
+  border-radius: 6px;
+  font-family: "Special Elite", monospace, Courier, monospace;
+  color: #1a1a1a;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  box-shadow: 2px 2px 0 #c9b99a;
+}
+
+.inputForm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.inputForm label {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.inputForm input[type="text"],
+.inputForm textarea {
+  padding: 0.8rem;
+  font-size: 1rem;
+  border: 2px dashed #c9b99a;
+  border-radius: 4px;
+  background-color: #fdf6e3;
+  font-family: inherit;
+  transition: border-color 0.3s ease, box-shadow 0.2s ease;
+}
+.inputForm textarea {
+  line-height: 1.5;
+}
+.inputForm input[type="text"]:focus,
+.inputForm textarea:focus {
+  border-color: #1a1a1a;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+  outline: none;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 150px;
+}
+
+fieldset {
+  border: 2px dashed #c9b99a;
+  border-radius: 4px;
+  padding: 1rem;
+  background: #fdf6e3;
+}
+
+legend {
+  font-weight: bold;
+  font-size: 1rem;
+  padding: 0 5px;
+}
+.fieldChoices {
+  display: flex;
+  gap: 10px;
+}
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.buttons button {
+  font-family: inherit;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 1rem;
+  border: 1.5px solid #c9b99a;
+  background-color: #c9b99a;
+  color: #1a1a1a;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.buttons button:hover {
+  background-color: #1a1a1a;
+  color: #f5f1e9;
+  transform: translateY(-2px);
+}
+
+.errorBox {
+  padding: 1rem;
+  border: 2px solid #d9534f;
+  background: #f9d6d5;
+  color: #a94442;
+  border-radius: 4px;
+  font-weight: bold;
+}
