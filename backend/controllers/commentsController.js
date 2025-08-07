@@ -58,7 +58,7 @@ class CommentsController {
       return res.status(404).json("Post not found");
     }
 
-    const comment = await CommentService.getCommentById(id);
+    const comment = await CommentService.getCommentWithPost(id);
     if (!comment) return res.status(404).json("Comment not found");
     if (comment.authorId !== userId)
       return res.status(403).json("Forbidden: You do not own this comment");

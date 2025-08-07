@@ -51,96 +51,106 @@ function Signup() {
 
   return (
     <div className={styles.formContainer}>
-      {error && (
-        <div style={{ color: "red" }}>
-          {error.map((err, i) => (
-            <p key={i}>{err.msg}</p>
-          ))}
-        </div>
-      )}
       <form onSubmit={handleSubmit} className={styles.registerForm}>
-        <h2> Sign-up</h2>
-        <div className={styles.inputForm}>
-          <label htmlFor="first_name">First name: </label>
-          <input
-            type="text"
-            name="first_name"
-            id="first_name"
-            value={formData.first_name}
-            onChange={handleInputChange}
-            required
-          />
+        <div className={styles.signupInfo}>
+          <h2> Sign-up</h2>
+          <p>
+            Please note: the first login or sign-up may take longer than usual,
+            as the free backend hosting needs some time to wake up.
+          </p>
         </div>
-
-        <div className={styles.inputForm}>
-          <label htmlFor="last_name">Last name: </label>
-          <input
-            type="text"
-            name="last_name"
-            id="last_name"
-            value={formData.last_name}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-        <div className={styles.inputForm}>
-          <label htmlFor="email">Email: </label>
-          <input
-            type="text"
-            name="email"
-            id="email"
-            value={formData.email}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-
-        <div className={styles.inputForm}>
-          <label htmlFor="password">Password: </label>
-          <div className={styles.inputIconContainer}>
-            <input
-              type={passwordVisible ? "text" : "password"}
-              name="password"
-              id="password"
-              value={formData.password}
-              onChange={handleInputChange}
-              required
-              minLength="3"
-              pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{3,}$"
-              title="Password must be at least 3 characters and contain at least one letter and one number"
-            />
-            <span
-              className={styles.togglePassword}
-              onClick={() => togglePassword("password")}
-            >
-              {passwordVisible ? "🙈" : "🙉"}
-            </span>
+        {error && (
+          <div style={{ color: "red" }}>
+            {error.map((err, i) => (
+              <p key={i}>{err.msg}</p>
+            ))}
           </div>
-        </div>
-
-        <div className={styles.inputForm}>
-          <label htmlFor="passwordConfirmation">Confirm Password: </label>
-          <div className={styles.inputIconContainer}>
-            <input
-              type={confirmPasswordVisible ? "text" : "password"}
-              name="passwordConfirmation"
-              id="passwordConfirmation"
-              value={formData.passwordConfirmation}
-              onChange={handleInputChange}
-              required
-            />
-            <span
-              className={styles.togglePassword}
-              onClick={() => togglePassword("passwordConfirmation")}
-            >
-              {confirmPasswordVisible ? "🙈" : "🙉"}
-            </span>
-          </div>
-        </div>
-
-        {passwordError && (
-          <p style={{ color: "red" }}>Passwords do not match.</p>
         )}
+        <div className={styles.inputs}>
+          <div className={styles.firstColumn}>
+            <div className={styles.inputForm}>
+              <label htmlFor="first_name">First name: </label>
+              <input
+                type="text"
+                name="first_name"
+                id="first_name"
+                value={formData.first_name}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+
+            <div className={styles.inputForm}>
+              <label htmlFor="last_name">Last name: </label>
+              <input
+                type="text"
+                name="last_name"
+                id="last_name"
+                value={formData.last_name}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+            <div className={styles.inputForm}>
+              <label htmlFor="email">Email: </label>
+              <input
+                type="text"
+                name="email"
+                id="email"
+                value={formData.email}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+          </div>
+          <div className={styles.secondColumn}>
+            <div className={styles.inputForm}>
+              <label htmlFor="password">Password: </label>
+              <div className={styles.inputIconContainer}>
+                <input
+                  type={passwordVisible ? "text" : "password"}
+                  name="password"
+                  id="password"
+                  value={formData.password}
+                  onChange={handleInputChange}
+                  required
+                  minLength="3"
+                  pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{3,}$"
+                  title="Password must be at least 3 characters and contain at least one letter and one number"
+                />
+                <span
+                  className={styles.togglePassword}
+                  onClick={() => togglePassword("password")}
+                >
+                  {passwordVisible ? "🙈" : "🙉"}
+                </span>
+              </div>
+            </div>
+
+            <div className={styles.inputForm}>
+              <label htmlFor="passwordConfirmation">Confirm Password: </label>
+              <div className={styles.inputIconContainer}>
+                <input
+                  type={confirmPasswordVisible ? "text" : "password"}
+                  name="passwordConfirmation"
+                  id="passwordConfirmation"
+                  value={formData.passwordConfirmation}
+                  onChange={handleInputChange}
+                  required
+                />
+                <span
+                  className={styles.togglePassword}
+                  onClick={() => togglePassword("passwordConfirmation")}
+                >
+                  {confirmPasswordVisible ? "🙈" : "🙉"}
+                </span>
+              </div>
+            </div>
+            {passwordError && (
+              <p style={{ color: "red" }}>Passwords do not match.</p>
+            )}
+          </div>
+        </div>
 
         <button
           type="submit"

@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import styles from "./PostCard.module.css";
+import DOMPurify from "dompurify";
 
 function PostCard({ post }) {
   const navigate = useNavigate();
@@ -13,7 +14,10 @@ function PostCard({ post }) {
   return (
     <div className={styles.postCard} onClick={handleClick}>
       <h2>{post.title}</h2>
-      <p>{preview}</p>
+      <div
+        className={styles.contentInfo}
+        dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content) }}
+      ></div>
       <small>
         Author: {post.author.firstName} {post.author.lastName}
       </small>

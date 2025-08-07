@@ -32,15 +32,21 @@ function Login() {
 
   return (
     <div className={styles.formContainer}>
-      {error && (
-        <div style={{ color: "red" }}>
-          {error.map((err, i) => (
-            <p key={i}>{err.msg}</p>
-          ))}
-        </div>
-      )}
       <form onSubmit={handleSubmit} className={styles.loginForm}>
-        <h2> Login</h2>
+        <div className={styles.signupInfo}>
+          <h2> Login</h2>
+          <p>
+            Please note: the first login or sign-up may take longer than usual,
+            as the free backend hosting needs some time to wake up.
+          </p>
+        </div>
+        {error && (
+          <div style={{ color: "red" }}>
+            {error.map((err, i) => (
+              <p key={i}>{err.msg}</p>
+            ))}
+          </div>
+        )}
         <div className={styles.inputForm}>
           <label htmlFor="email">Email: </label>
           <input
