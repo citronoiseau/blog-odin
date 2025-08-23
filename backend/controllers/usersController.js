@@ -34,8 +34,9 @@ class UsersController {
 
   upgradeToAuthor = asyncHandler(async (req, res) => {
     const { secretPassword } = req.body;
+    const acceptedSecrets = process.env.AUTHOR_SECRET.split(",");
 
-    if (secretPassword !== process.env.AUTHOR_SECRET) {
+    if (!acceptedSecrets.includes(secretPassword)) {
       return res.status(403).json({ message: "Invalid secret password" });
     }
 
