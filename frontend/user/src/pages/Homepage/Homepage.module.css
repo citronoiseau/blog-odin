@@ -1,5 +1,6 @@
 .pageContainer {
-  padding: 20px;
+  padding: 20px 40px;
+  margin: 0 0 40px 0;
   font-family: "Special Elite", monospace, Courier, monospace;
   background-color: #f5f1e9;
   color: #1a1a1a;
@@ -49,6 +50,5 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
-  max-width: 1200px;
   width: 100%;
 }
