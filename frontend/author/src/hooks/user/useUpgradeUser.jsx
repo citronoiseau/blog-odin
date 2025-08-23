@@ -17,6 +17,9 @@ export function useUpgradeUser() {
       showToast(result.message, false, 3000);
       navigate("/");
     } catch (err) {
+      if (err.status === 401) {
+        navigate("/login");
+      }
       if (err.errors) {
         setError(err.errors);
       } else {
